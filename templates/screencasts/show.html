@@ -1,0 +1,18 @@
+<div class="page-header">
+  <h1>Screencast#Show</h1>
+</div>
+
+<ul class="list-unstyled list-inline">
+  <li class="list-inline-item">
+    <%= linkTo(screencastsPath(), {class: "btn btn-info"}) { %>
+      Back to all Screencasts
+    <% } %>
+  </li>
+  <li class="list-inline-item">
+    <%= linkTo(editScreencastPath({ screencast_id: screencast.ID }), {class: "btn btn-warning", body: "Edit"}) %>
+  </li>
+  <li class="list-inline-item">
+    <%= linkTo(screencastPath({ screencast_id: screencast.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
+  </li>
+</ul>
+

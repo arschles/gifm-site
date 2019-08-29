@@ -1,0 +1,6 @@
+- id: "screencast.created.success"
+  translation: "Screencast was successfully created."
+- id: "screencast.updated.success"
+  translation: "Screencast was successfully updated."
+- id: "screencast.destroyed.success"
+  translation: "Screencast was successfully destroyed."
