@@ -1,12 +1,28 @@
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
+vendor/
+**/*.log
+**/*.sqlite
+.idea/
+bin/
+tmp/
+node_modules/
+.sass-cache/
+*-packr.go
+public/assets/
+.vscode/
+.grifter/
+.env
+**/.DS_Store
+*.pid
+coverage
+coverage.data
+.svn
+.console_history
+.sass-cache/*
+.jhw-cache/
+jhw.*
+*.sublime*
+node_modules/
+dist/
+generated/
+.vendor/
 
-# Test binary, build with `go test -c`
-*.test
-
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
