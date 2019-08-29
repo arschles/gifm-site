@@ -1,4 +1,8 @@
 create_table("screencasts") {
 	t.Column("id", "uuid", {primary: true})
 	t.Timestamps()
+	t.Column("episode_num", "integer", {})
+	t.Column("title", "text", {})
+	t.Column("intro", "text", {})
+	t.Column("markdown", "text", {})
 }
