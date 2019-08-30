@@ -1,9 +1,7 @@
 package actions
 
 import (
-	"fmt"
-	"html/template"
-
+	"github.com/arschles/go-in-5-minutes-site/pkg/helpers"
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/packr/v2"
 )
@@ -26,9 +24,11 @@ func init() {
 			// below and import "github.com/gobuffalo/helpers/forms"
 			// forms.FormKey:     forms.Form,
 			// forms.FormForKey:  forms.FormFor,
-			"container": func(h template.HTML) template.HTML {
-				return template.HTML(fmt.Sprintf(`<div class="container">%s</div>`, h))
-			},
+			"tag": helpers.Tag,
+			"div":       helpers.Div,
+			"container": helpers.Container,
+			"row":       helpers.Row,
+			"text": helpers.Text,
 		},
 	})
 }

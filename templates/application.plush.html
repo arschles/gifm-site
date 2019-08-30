@@ -11,10 +11,11 @@
     <%= javascriptTag("application.js") %>
   </head>
   <body>
-    <%= partial("nav.html") %>
+    <%= partial("components/nav.plush.html") %>
     <div class="container">
-      <%= partial("flash.html") %>
+      <%= partial("components/flash.plush.html") %>
       <%= yield %>
     </div>
+    <%= partial("components/footer.plush.html") %>
   </body>
 </html>

@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/arschles/go-in-5-minutes-site/models"
-	"github.com/arschles/go-in-5-minutes-site/pkg/components"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop"
 )
@@ -27,7 +26,7 @@ func HomeHandler(c buffalo.Context) error {
 	if err := q.All(screencasts); err != nil {
 		return err
 	}
+	c.Set("screencasts", screencasts)
 
-	c.Set("screencast_rows", components.ScreencastRows(screencasts))
 	return c.Render(200, r.HTML("index.html"))
 }

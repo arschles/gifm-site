@@ -1,8 +1,0 @@
-<div class="page-header">
-  <h1>Edit Screencast</h1>
-</div>
-
-<%= formFor(screencast, {action: screencastPath({ screencast_id: screencast.ID }), method: "PUT"}) { %>
-  <%= partial("screencasts/form.html") %>
-  <%= linkTo(screencastPath({ screencast_id: screencast.ID }), {class: "btn btn-warning", "data-confirm": "Are you sure?", body: "Cancel"}) %>
-<% } %>
