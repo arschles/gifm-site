@@ -1,6 +1,9 @@
 package actions
 
 import (
+	"fmt"
+	"html/template"
+
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/packr/v2"
 )
@@ -23,6 +26,9 @@ func init() {
 			// below and import "github.com/gobuffalo/helpers/forms"
 			// forms.FormKey:     forms.Form,
 			// forms.FormForKey:  forms.FormFor,
+			"container": func(h template.HTML) template.HTML {
+				return template.HTML(fmt.Sprintf(`<div class="container">%s</div>`, h))
+			},
 		},
 	})
 }

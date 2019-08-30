@@ -11,9 +11,13 @@ import (
 
 // Screencast model struct
 type Screencast struct {
-	ID        uuid.UUID `json:"id" db:"id"`
-	CreatedAt time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
+	ID         uuid.UUID `json:"id" db:"id"`
+	CreatedAt  time.Time `json:"created_at" db:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at" db:"updated_at"`
+	EpisodeNum int       `json:"episode_num" db:"episode_num"`
+	Title      string    `json:"title" db:"title"`
+	Intro      string    `json:"intro" db:"intro"`
+	Markdown   string    `json:"markdown" db:"markdown"`
 }
 
 // String is not required by pop and may be deleted
