@@ -8,7 +8,7 @@ import (
 type TagOpts map[string]interface{}
 
 func EmptyOpts() TagOpts {
-	return TagOpts{new(map[string]interface{})}
+	return TagOpts(map[string]interface{}{})
 }
 
 func (t *TagOpts) String() string {

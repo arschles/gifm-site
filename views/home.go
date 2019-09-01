@@ -7,6 +7,25 @@ import (
 )
 
 func Home() render.Elt {
+	ytSubscribeButton := tags.Div(
+		render.TagOpts{"class": "col-sm-6 text-left"},
+		tags.Div(
+			render.TagOpts{
+				"class":          "g-ytsubscribe",
+				"data-channelid": "UC2GHqYE3fVJMncbrRd8AqcA",
+				"data-layout":    "full",
+				"data-count":     "default",
+			},
+		),
+	)
+
+	ghStarButton := tags.Div(
+		render.TagOpts{"class": "col-sm-6 text-right"},
+		render.Tag("iframe", render.TagOpts{
+			"src":   "https://ghbtns.com/github-btn.html?user=arschles&repo=go-in-5-minutes&type=star&count=true&size=large",
+			"style": "border:0; width:160px; height:30px; overflow:hidden",
+		}),
+	)
 	return components.Base(render.Tag("div", render.TagOpts{"class": "container-fluid"},
 		tags.Div(render.TagOpts{"class": "row text-center"},
 			tags.Div(render.TagOpts{"class": "jumbotron", "id": "gifm-landing-jumbotron"},
@@ -48,24 +67,8 @@ func Home() render.Elt {
 				render.TagOpts{"class": "row text-center"},
 				tags.Div(
 					render.TagOpts{"class": "row text-center"},
-					tags.Div(
-						render.TagOpts{"class": "col-sm-6 text-right"},
-						render.Tag("iframe", render.TagOpts{
-							"src":   "https://ghbtns.com/github-btn.html?user=arschles&repo=go-in-5-minutes&type=star&count=true&size=large",
-							"style": "border:0; width:160px; height:30px; overflow:hidden",
-						}),
-					),
-					tags.Div(
-						render.TagOpts{"class": "col-sm-6 text-left"},
-						tags.Div(
-							render.TagOpts{
-								"class":          "g-ytsubscribe",
-								"data-channelid": "UC2GHqYE3fVJMncbrRd8AqcA",
-								"data-layout":    "full",
-								"data-count":     "default",
-							},
-						),
-					),
+					ghStarButton,
+					ytSubscribeButton,
 				),
 			),
 		),

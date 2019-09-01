@@ -13,7 +13,7 @@ func Tag(name string, opts TagOpts, contents ...Elt) Elt {
 }
 
 func NewTag(name string) TagBuilder {
-	return TagBuilder{name: string, opts: EmptyOpts(), children: nil}
+	return TagBuilder{name: name, opts: EmptyOpts(), children: nil}
 }
 
 type tag struct {
@@ -68,4 +68,5 @@ func (t TagBuilder) WithOpts(opts TagOpts) TagBuilder {
 
 func (t TagBuilder) WithChild(e Elt) TagBuilder {
 	t.children = append(t.children, e)
+	return t
 }
