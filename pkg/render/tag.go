@@ -1,54 +1,71 @@
 package render
+
 import (
 	"bytes"
-	"io"
-	"strings"
 	"fmt"
-
-	"github.com/gobuffalo/buffalo/render"
-	"github.com/gobuffalo/tags"
+	"io"
+	"io/ioutil"
+	"strings"
 )
-type Elt render.Renderer
 
-func Tag(name string, opts tags.Options, contents ...Elt) Elt {
-	return elt{name: name, opts: opts, children: contents}
+func Tag(name string, opts TagOpts, contents ...Elt) Elt {
+	return tag{name: name, opts: opts, children: contents}
 }
 
-type elt struct {
-	name string
-	opts tags.Options
+func NewTag(name string) TagBuilder {
+	return TagBuilder{name: string, opts: EmptyOpts(), children: nil}
+}
+
+type tag struct {
+	name     string
+	opts     TagOpts
 	children []Elt
 }
 
-func (e elt) ContentType() string {
-	return "text/html"
-}
-
-func (e elt) Render(w io.Writer, d render.Data) error {
+func (e tag) ToHTML() (io.Reader, error) {
 	children := make([]string, len(e.children))
 	for i, child := range e.children {
-		var childBytes bytes.Buffer
-		if err := child.Render(&childBytes, d); err != nil {
-			return err
+		childReader, err := child.ToHTML()
+		if err != nil {
+			return nil, err
 		}
-		children[i] = string(childBytes.Bytes())
+		childBytes, err := ioutil.ReadAll(childReader)
+		if err != nil {
+			return nil, err
+		}
+		children[i] = string(childBytes)
 	}
-	toWrite := fmt.Sprintf(
-		`<%s %s>
-			%s
-		</%s>`,
+	optsStr := ""
+	if len(e.opts) > 0 {
+		optsStr = " " + e.opts.String()
+	}
+	toWrite := fmt.Sprintf(`<%s%s>
+%s
+</%s>`,
 		e.name,
-		optsAsString(e.opts),
+		optsStr,
 		strings.Join(children, "\n"),
+		e.name,
 	)
-	_, err := w.Write([]byte(toWrite))
-	return err
+	return bytes.NewBuffer([]byte(toWrite)), nil
 }
 
-func optsAsString(opts tags.Options) string {
-	attrs := []string{}
-	for k, v := range opts {
-		attrs = append(attrs, fmt.Sprintf(`%s="%s"`, k, v))
-	}
-	return strings.Join(attrs, " ")
+type TagBuilder struct {
+	name     string
+	opts     TagOpts
+	children []Elt
+}
+
+func (t TagBuilder) WithOpt(name string, val interface{}) TagBuilder {
+	t.opts[name] = val
+	return t
+}
+
+func (t TagBuilder) WithOpts(opts TagOpts) TagBuilder {
+	t.opts = opts
+	return t
+}
+
+func (t TagBuilder) WithChild(e Elt) TagBuilder {
+	t.children = append(t.children, e)
 }

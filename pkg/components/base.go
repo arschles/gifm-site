@@ -1,25 +1,40 @@
 package components
+
 import (
 	"io"
+	"strings"
 
-	"github.com/gobuffalo/tags"
-	"github.com/gobuffalo/buffalo/render"
-	rndr "github.com/arschles/go-in-5-minutes-site/pkg/render"
+	"github.com/arschles/go-in-5-minutes-site/pkg/render"
 )
 
-func emptyData() render.Data { return map[string]interface{}{} }
-func emptyOpts() tags.Options { return map[string]interface{}{} }
 type emptyElt struct{}
-func (e emptyElt) ContentType() string {return ""}
-func (e emptyElt) Render(io.Writer, render.Data) error {
-	return nil
+
+func (e emptyElt) ToHTML() (io.Reader, error) {
+	return strings.NewReader(""), nil
 }
 
-func Base(body rndr.Elt) rndr.Elt {
-	return rndr.Tag(
-		"html",
-		emptyOpts(),
-		head(),
-		body,
-	)
+type baseTag struct {
+	baseElt render.Elt
+}
+
+func (b baseTag) ToHTML() (io.Reader, error) {
+	preamble := strings.NewReader("<!doctype html>")
+	remaining, err := b.baseElt.ToHTML()
+	if err != nil {
+		return nil, err
+	}
+	return io.MultiReader(preamble, remaining), nil
+}
+
+func Base(body render.Elt) render.Elt {
+	return baseTag{
+		baseElt: render.Tag(
+			"html",
+			render.TagOpts{"lang": "en"},
+			head(),
+			render.Tag("body", render.EmptyOpts(),
+				nav(),
+				body),
+		),
+	}
 }

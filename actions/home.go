@@ -4,6 +4,8 @@ import (
 	"fmt"
 
 	"github.com/arschles/go-in-5-minutes-site/models"
+	"github.com/arschles/go-in-5-minutes-site/pkg/render"
+	"github.com/arschles/go-in-5-minutes-site/views"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop"
 )
@@ -28,5 +30,5 @@ func HomeHandler(c buffalo.Context) error {
 	}
 	c.Set("screencasts", screencasts)
 
-	return c.Render(200, r.HTML("index.html"))
+	return c.Render(200, render.EltToRenderer(views.Home()))
 }

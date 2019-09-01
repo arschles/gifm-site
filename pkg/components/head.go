@@ -1,33 +1,39 @@
 package components
-import (
-	"github.com/gobuffalo/tags"
-	rndr "github.com/arschles/go-in-5-minutes-site/pkg/render"
-)
-func meta(opts tags.Options) rndr.Elt {
-	return rndr.Tag("meta", opts, emptyElt{})
-}
 
-func head() rndr.Elt {
-	return rndr.Tag("head", emptyOpts(), 
-		meta(tags.Options{
-			"name": "viewport",
+import (
+	"github.com/arschles/go-in-5-minutes-site/pkg/render"
+	"github.com/arschles/go-in-5-minutes-site/pkg/tags"
+)
+
+func head() render.Elt {
+	return render.Tag("head", render.EmptyOpts(),
+		tags.Meta(render.TagOpts{
+			"name":    "viewport",
 			"content": "width=device-width, initial-scale=1",
 		}),
-		meta(tags.Options{"charset": "utf-8"}),
-		meta(tags.Options{
-			"name": "csrf-param",
+		tags.Meta(render.TagOpts{"charset": "utf-8"}),
+		tags.Meta(render.TagOpts{
+			"name":    "csrf-param",
 			"content": "authenticity-token",
 		}),
-		meta(tags.Options{
+		tags.Meta(render.TagOpts{
 			"name": "csrf-token",
 			// TODO: make random! see https://github.com/gobuffalo/mw-csrf/blob/master/csrf.go
 			"authenticity_token": "abvsfasdf",
 		}),
-		rndr.Tag("link", tags.Options{
-			"rel": "icon",
-			"href": "images/favicon.ico",
-		}, emptyElt{}),
+		tags.Link(render.TagOpts{"rel": "icon", "href": "images/favicon.ico"}),
 		// TODO: CSS and JS
-		rndr.Tag("title", emptyOpts(), rndr.Text("Go in 5 Minutes")),
+		render.Tag("title", render.EmptyOpts(), render.Text("Go in 5 Minutes")),
+		tags.Link(render.TagOpts{
+			"href": "https://fonts.googleapis.com/css?family=Varela+Round|Cousine:400,700",
+			"rel":  "stylesheet",
+			"type": "text/css",
+		}),
+		tags.Link(render.TagOpts{
+			"rel":         "stylesheet",
+			"href":        "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css",
+			"integrity":   "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T",
+			"crossorigin": "anonymous",
+		}),
 	)
 }
