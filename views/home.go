@@ -26,7 +26,7 @@ func Home() render.Elt {
 			"style": "border:0; width:160px; height:30px; overflow:hidden",
 		}),
 	)
-	return components.Base(render.Tag("div", render.TagOpts{"class": "container-fluid"},
+	return components.Base(render.Tag("div", render.TagOpts{"class": "container text-center"},
 		tags.Div(render.TagOpts{"class": "row text-center"},
 			tags.Div(render.TagOpts{"class": "jumbotron", "id": "gifm-landing-jumbotron"},
 				tags.P(
