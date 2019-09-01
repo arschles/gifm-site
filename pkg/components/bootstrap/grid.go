@@ -12,15 +12,15 @@ type Row struct {
 }
 
 func (r Row) ToHTML() (io.Reader, error) {
-	opts := render.TagOpts{
+	opts := render.MergeTagOpts(r.opts, render.TagOpts{
 		"class": "row",
-	}
+	}, "class")
 
 	colElts := make([]render.Elt, len(r.cols))
 	for i, col := range r.cols {
-		colElts[i] = render.Tag("div", col.opts, col.elts)
+		colElts[i] = render.Tag("div", col.opts, col.elts...)
 	}
-	return render.Tag("div", render.MergeTagOpts(r.opts, opts, "class"), colElts...).ToHTML()
+	return render.Tag("div", opts, colElts...).ToHTML()
 }
 
 func (r Row) WithCol(c Col) Row {
@@ -51,7 +51,10 @@ func NewGrid() Grid {
 	return Grid{rows: nil}
 }
 
-// func (g Grid) WithRow(r Row) Grid
+func (g Grid) WithRow(r Row) Grid {
+	g.rows = append(g.rows, r)
+	return g
+}
 
 func (g Grid) ToHTML() (io.Reader, error) {
 	rowElts := make([]render.Elt, len(g.rows))
