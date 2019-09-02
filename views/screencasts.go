@@ -32,6 +32,7 @@ func Screencasts(manifest *assets.Manifest, screencasts *models.Screencasts) (re
 					),
 				),
 			),
+			tags.Div(render.TagOpts{}, screencastsList),
 		),
 	)
 }
