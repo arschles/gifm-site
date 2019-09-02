@@ -19,7 +19,7 @@ func head(manifest *assets.Manifest) (render.Elt, error) {
 	return render.Tag("head", render.EmptyOpts(),
 		tags.Meta(render.TagOpts{
 			"name":    "viewport",
-			"content": "width=device-width, initial-scale=1",
+			"content": "width=device-width, initial-scale=1, shrink-to-fit=no",
 		}),
 		tags.Meta(render.TagOpts{"charset": "utf-8"}),
 		tags.Meta(render.TagOpts{

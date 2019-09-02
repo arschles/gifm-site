@@ -70,3 +70,7 @@ func (t TagBuilder) WithChild(e Elt) TagBuilder {
 	t.children = append(t.children, e)
 	return t
 }
+
+func (t TagBuilder) ToHTML() (io.Reader, error) {
+	return Tag(t.name, t.opts, t.children...).ToHTML()
+}

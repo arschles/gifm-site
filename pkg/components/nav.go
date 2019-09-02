@@ -31,7 +31,8 @@ func nav() render.Elt {
 				"class": "navbar-collapse collapse",
 				"id":    "navbarSupportedContent",
 			},
-			render.Tag("ul", render.TagOpts{"class": "navbar-nav mr-auto"}, linkList()),
+			linkList(),
+			// render.Tag("ul", render.TagOpts{"class": "navbar-nav mr-auto"}, linkList()),
 		),
 	)
 }

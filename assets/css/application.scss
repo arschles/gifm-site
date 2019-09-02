@@ -1,2 +1,101 @@
-@import "~bootstrap/scss/bootstrap.scss";
+@import "~bootstrap/scss/bootstrap";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
+
+$enable-gradients: true;
+$spacer: 2em;
+
+img.aaron-headshot {
+  max-height: 20em;
+}
+
+div.start-button-row {
+  margin-top:2em;
+  margin-bottom:2em;
+}
+
+.gifm-subtitle {
+  text-transform: uppercase;
+  font-weight:900;
+  /*color: #92A1B9;*/
+}
+
+#gifm-rotating-topics {
+  font-family: 'Varela Round', sans-serif;
+}
+
+#gifm-elaboration {
+  font-family: 'Cousine', ;
+}
+
+#gifm-landing-jumbotron p.gifm-subtitle {
+  color:#000000;
+}
+
+.bordered {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.screencast-row {
+  margin:1em 0 1em 0;
+}
+.screencast-col {
+  padding:1em;
+  margin:10px 10px 10px 10px;
+  border: 1px solid #eeeeee;
+}
+
+div.media-left.date {
+  color:#555555;
+}
+
+body {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-family: 'Varela Round', sans-serif;
+}
+
+.top-sm-1 {
+  margin-top: 1em;
+}
+
+.top-sm-2 {
+  margin-top: 2em;
+}
+
+.bot-sm-1 {
+  margin-bottom: 1em;
+}
+
+.background-grey-1 {
+  background-color: #eeeeee;
+}
+
+.footer {
+  margin-top: 3em;
+  font-size: 80%;
+}
+
+p {
+  color: #747474;
+}
+
+.gifm-logo {
+  font-size: 120%;
+  font-family: 'Cousine', ;
+}
+
+h1.page-title {
+  border-bottom: 1px solid #eee;
+}
+
+.footer {
+  font-size: 0.7em;
+  padding-top: 1em;
+  border-top: 1px solid #aaa;
+}
+
+a.screencast-title:link, a.screencast-title:visited {
+  color: #000;
+}
+

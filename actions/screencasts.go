@@ -4,6 +4,8 @@ import (
 	"fmt"
 
 	"github.com/arschles/go-in-5-minutes-site/models"
+	"github.com/arschles/go-in-5-minutes-site/pkg/render"
+	"github.com/arschles/go-in-5-minutes-site/views"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop"
 )
@@ -48,7 +50,12 @@ func (v ScreencastsResource) List(c buffalo.Context) error {
 	// Add the paginator to the context so it can be used in the template.
 	c.Set("pagination", q.Paginator)
 
-	return c.Render(200, r.Auto(c, screencasts))
+	view, err := views.Screencasts(parsedManifest, screencasts)
+	if err != nil {
+		return err
+	}
+
+	return c.Render(200, render.EltToRenderer(view))
 }
 
 // Show gets the data for one Screencast. This function is mapped to
