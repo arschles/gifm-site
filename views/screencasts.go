@@ -9,11 +9,9 @@ import (
 )
 
 func Screencasts(manifest *assets.Manifest, screencasts *models.Screencasts) (render.Elt, error) {
-	screencastsList := render.NewTag("ul")
+	screencastsList := render.NewTag("div").WithOpt("class", "container-fluid")
 	for _, screencast := range *screencasts {
-		screencastsList = screencastsList.WithChild(
-			render.Tag("li", render.TagOpts{}, render.Text(screencast.Title)),
-		)
+		screencastsList = screencastsList.WithChild(Screencast(screencast))
 	}
 
 	return components.Base(
@@ -32,7 +30,7 @@ func Screencasts(manifest *assets.Manifest, screencasts *models.Screencasts) (re
 					),
 				),
 			),
-			tags.Div(render.TagOpts{}, screencastsList),
+			screencastsList,
 		),
 	)
 }
