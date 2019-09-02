@@ -1,6 +1,10 @@
 package actions
 
 import (
+	"fmt"
+	"os"
+
+	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
 	"github.com/arschles/go-in-5-minutes-site/pkg/helpers"
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/packr/v2"
@@ -8,6 +12,7 @@ import (
 
 var r *render.Engine
 var assetsBox = packr.New("app:assets", "../public")
+var parsedManifest *assets.Manifest
 
 func init() {
 	r = render.New(render.Options{
@@ -24,11 +29,20 @@ func init() {
 			// below and import "github.com/gobuffalo/helpers/forms"
 			// forms.FormKey:     forms.Form,
 			// forms.FormForKey:  forms.FormFor,
-			"tag": helpers.Tag,
+			"tag":       helpers.Tag,
 			"div":       helpers.Div,
 			"container": helpers.Container,
 			"row":       helpers.Row,
-			"text": helpers.Text,
+			"text":      helpers.Text,
 		},
 	})
+	goEnv := os.Getenv("GO_ENV")
+	var err error
+	parsedManifest, err = assets.ParseManifest(goEnv != "production", assetsBox)
+	if err != nil {
+		panic(fmt.Sprintf("Could not parse assets manifest: %s", err))
+	}
+	if goEnv != "production" {
+		fmt.Println("Parsed manifest", *parsedManifest)
+	}
 }

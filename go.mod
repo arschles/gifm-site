@@ -19,6 +19,7 @@ require (
 	github.com/gobuffalo/validate v2.0.3+incompatible
 	github.com/gofrs/uuid v3.2.0+incompatible
 	github.com/markbates/grift v1.1.0
+	github.com/pkg/errors v0.8.1
 	github.com/spf13/afero v1.2.1 // indirect
 	github.com/unrolled/secure v1.0.1
 )

@@ -29,6 +29,9 @@ func HomeHandler(c buffalo.Context) error {
 		return err
 	}
 	c.Set("screencasts", screencasts)
-
-	return c.Render(200, render.EltToRenderer(views.Home()))
+	homeView, err := views.Home(parsedManifest)
+	if err != nil {
+		return err
+	}
+	return c.Render(200, render.EltToRenderer(homeView))
 }

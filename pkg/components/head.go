@@ -1,11 +1,21 @@
 package components
 
 import (
+	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
 	"github.com/arschles/go-in-5-minutes-site/pkg/render"
 	"github.com/arschles/go-in-5-minutes-site/pkg/tags"
+	"github.com/pkg/errors"
 )
 
-func head() render.Elt {
+func head(manifest *assets.Manifest) (render.Elt, error) {
+	jsElt, err := tags.JS(manifest, "application.js")
+	if err != nil {
+		return nil, errors.WithMessage(err, "Trying to construct <head>")
+	}
+	cssElt, err := tags.CSS(manifest, "application.css")
+	if err != nil {
+		return nil, errors.WithMessage(err, "Trying to construct <head>")
+	}
 	return render.Tag("head", render.EmptyOpts(),
 		tags.Meta(render.TagOpts{
 			"name":    "viewport",
@@ -22,18 +32,21 @@ func head() render.Elt {
 			"authenticity_token": "abvsfasdf",
 		}),
 		tags.Link(render.TagOpts{"rel": "icon", "href": "images/favicon.ico"}),
-		// TODO: CSS and JS
+		jsElt,
+		cssElt,
 		render.Tag("title", render.EmptyOpts(), render.Text("Go in 5 Minutes")),
 		tags.Link(render.TagOpts{
 			"href": "https://fonts.googleapis.com/css?family=Varela+Round|Cousine:400,700",
 			"rel":  "stylesheet",
 			"type": "text/css",
 		}),
+		// TODO: I don't think we need this since the tags.CSS call above will bring
+		// in bootstrap
 		tags.Link(render.TagOpts{
 			"rel":         "stylesheet",
 			"href":        "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css",
 			"integrity":   "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T",
 			"crossorigin": "anonymous",
 		}),
-	)
+	), nil
 }

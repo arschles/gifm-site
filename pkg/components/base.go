@@ -4,6 +4,7 @@ import (
 	"io"
 	"strings"
 
+	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
 	"github.com/arschles/go-in-5-minutes-site/pkg/render"
 )
 
@@ -26,15 +27,13 @@ func (b baseTag) ToHTML() (io.Reader, error) {
 	return io.MultiReader(preamble, remaining), nil
 }
 
-func Base(body render.Elt) render.Elt {
-	return baseTag{
-		baseElt: render.Tag(
-			"html",
-			render.TagOpts{"lang": "en"},
-			head(),
-			render.Tag("body", render.EmptyOpts(),
-				nav(),
-				body),
-		),
+func Base(manifest *assets.Manifest, body render.Elt) (render.Elt, error) {
+	headElt, err := head(manifest)
+	if err != nil {
+		return nil, err
 	}
+	bodyElt := render.Tag("body", render.EmptyOpts(), nav(), body)
+	return baseTag{
+		baseElt: render.Tag("html", render.TagOpts{"lang": "en"}, headElt, bodyElt),
+	}, nil
 }

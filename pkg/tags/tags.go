@@ -1,6 +1,9 @@
 package tags
 
-import "github.com/arschles/go-in-5-minutes-site/pkg/render"
+import (
+	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
+	"github.com/arschles/go-in-5-minutes-site/pkg/render"
+)
 
 func Link(opts render.TagOpts) render.Elt {
 	return Empty("link", opts)
@@ -29,4 +32,26 @@ func P(opts render.TagOpts, contents ...render.Elt) render.Elt {
 
 func Small(opts render.TagOpts, contents ...render.Elt) render.Elt {
 	return render.Tag("small", opts, contents...)
+}
+
+func JS(manifest *assets.Manifest, name string) (render.Elt, error) {
+	fname, err := manifest.FullyQualified(name)
+	if err != nil {
+		return nil, err
+	}
+	return render.Tag("script", render.TagOpts{
+		"type": "text/javascript",
+		"src":  fname,
+	}), nil
+}
+
+func CSS(manifest *assets.Manifest, name string) (render.Elt, error) {
+	fname, err := manifest.FullyQualified(name)
+	if err != nil {
+		return nil, err
+	}
+	return Link(render.TagOpts{
+		"rel":  "stylesheet",
+		"href": fname,
+	}), nil
 }
