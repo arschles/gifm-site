@@ -6,7 +6,6 @@ require (
 	github.com/gobuffalo/buffalo v0.14.10
 	github.com/gobuffalo/buffalo-pop v1.17.2
 	github.com/gobuffalo/envy v1.7.0
-	github.com/gobuffalo/helpers v0.2.4
 	github.com/gobuffalo/mw-csrf v0.0.0-20190129204204-25460a055517
 	github.com/gobuffalo/mw-forcessl v0.0.0-20190224202501-6d1ef7ffb276
 	github.com/gobuffalo/mw-i18n v0.0.0-20190224203426-337de00e4c33
@@ -20,6 +19,5 @@ require (
 	github.com/gofrs/uuid v3.2.0+incompatible
 	github.com/markbates/grift v1.1.0
 	github.com/pkg/errors v0.8.1
-	github.com/spf13/afero v1.2.1 // indirect
 	github.com/unrolled/secure v1.0.1
 )
