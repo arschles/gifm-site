@@ -55,17 +55,22 @@ func Home(manifest *assets.Manifest) (render.Elt, error) {
 			),
 			render.NewTag("div").WithOpt("class", "row text-center mt-5").WithChildren(
 				render.NewTag("div").WithOpt("class", "col-sm").WithChild(
-					bootstrap.Card("Testing", "All About Testing"),
+					bootstrap.Card("<mark>Testing</mark>", "Advanced practices for testing even complicated codebases"),
 				),
 				render.NewTag("div").WithOpt("class", "col-sm").WithChild(
-					bootstrap.Card("Debugging", "All About Debugging"),
+					bootstrap.Card("<mark>Debugging</mark>", "Debugging real-life apps, even with lots of concurrency"),
 				),
-				// bootstrap.Card(HTTP Servers, Websockets, Gorilla Mux, Benchmarking"
+				render.NewTag("div").WithOpt("class", "col-sm").WithChild(
+					bootstrap.Card("<mark>HTTP Servers</mark>", "Writing awesome, full-featured web applications"),
+				),
+				render.NewTag("div").WithOpt("class", "col-sm").WithChild(
+					bootstrap.Card("<mark>Websockets</mark>", "Integrating real-time features into your web applications"),
+				),
 			),
 			render.NewTag("div").WithOpt("class", "row text-center mt-5").WithChild(
 				render.NewTag("div").WithOpt("class", "col-sm text-center").WithChild(
 					render.NewTag("p").WithOpt("class", "lead").WithText(
-						`Go In 5 Minutes is a <mark>screencast series</mark> with the most concise, practical <a href="http://golang.org">Go</a> screencasts on the web.`,
+						`Go In 5 Minutes is a screencast series with the most concise, practical <a href="http://golang.org">Go</a> screencasts on the web.`,
 					),
 				).WithChild(
 					render.NewTag("p").WithChild(
