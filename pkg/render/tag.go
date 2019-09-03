@@ -71,6 +71,18 @@ func (t TagBuilder) WithChild(e Elt) TagBuilder {
 	return t
 }
 
+func (t TagBuilder) WithChildren(elts ...Elt) TagBuilder {
+	ret := t
+	for _, elt := range elts {
+		ret = ret.WithChild(elt)
+	}
+	return ret
+}
+
+func (t TagBuilder) WithText(s string) TagBuilder {
+	return t.WithChild(Text(s))
+}
+
 func (t TagBuilder) ToHTML() (io.Reader, error) {
 	return Tag(t.name, t.opts, t.children...).ToHTML()
 }

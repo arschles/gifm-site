@@ -8,37 +8,39 @@ import (
 func nav() render.Elt {
 	return render.Tag("nav",
 		render.TagOpts{"class": "navbar navbar-expand-lg navbar-light bg-light"},
-		render.Tag("a",
-			render.TagOpts{"class": "navbar-brand", "href": "/"},
-			render.Text("Go in 5 Minutes"),
-		),
-		render.Tag(
-			"button",
-			render.TagOpts{
-				"class":         "navbar-toggler",
-				"type":          "button",
-				"data-toggle":   "collapse",
-				"data-target":   "#navbarSupportedContent",
-				"aria-controls": "navbarSupportedContent",
-				"aria-expanded": "false",
-				"aria-label":    "Toggle navigation",
-			},
-			render.Tag("span", render.TagOpts{"class": "navbar-toggler-icon"}),
-		),
-		render.Tag(
-			"div",
-			render.TagOpts{
-				"class": "navbar-collapse collapse",
-				"id":    "navbarSupportedContent",
-			},
-			linkList(),
-			// render.Tag("ul", render.TagOpts{"class": "navbar-nav mr-auto"}, linkList()),
+		tags.Div(render.TagOpts{"class": "container-fluid"},
+			render.Tag("a",
+				render.TagOpts{"class": "navbar-brand", "href": "/"},
+				render.Text("Go in 5 Minutes"),
+			),
+			render.Tag(
+				"button",
+				render.TagOpts{
+					"class":         "navbar-toggler",
+					"type":          "button",
+					"data-toggle":   "collapse",
+					"data-target":   "#navbarSupportedContent",
+					"aria-controls": "navbarSupportedContent",
+					"aria-expanded": "false",
+					"aria-label":    "Toggle navigation",
+				},
+				render.Tag("span", render.TagOpts{"class": "navbar-toggler-icon"}),
+			),
+			render.Tag(
+				"div",
+				render.TagOpts{
+					"class": "navbar-collapse collapse",
+					"id":    "navbarSupportedContent",
+				},
+				linkList(),
+				// render.Tag("ul", render.TagOpts{"class": "navbar-nav mr-auto"}, linkList()),
+			),
 		),
 	)
 }
 
 func liNavItem(contents ...render.Elt) render.Elt {
-	return render.Tag("li", render.TagOpts{"class": "nav-item"}, contents...)
+	return render.Tag("li", render.TagOpts{"class": "nav-item pl-5"}, contents...)
 }
 
 func linkList() render.Elt {
@@ -51,7 +53,7 @@ func linkList() render.Elt {
 		// inside the <a>
 		liNavItem(tags.A("https://bitly.com/goin5minutes", render.TagOpts{
 			"target": "_blank",
-		}, "Code")),
+		}, "Code on GitHub")),
 		// TODO:
 		// <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
 		// inside the <a>

@@ -17,16 +17,22 @@ func Screencasts(manifest *assets.Manifest, screencasts *models.Screencasts) (re
 	return components.Base(
 		manifest,
 		tags.Div(render.TagOpts{"class": "container text-center"},
-			tags.Div(render.TagOpts{"class": "row"},
-				render.Tag(
-					"h1",
-					render.TagOpts{"class": "page-title"},
-					render.Text("All Screencasts"),
-					tags.Div(
-						render.TagOpts{
-							"class": "d-inline-flex p-2 bd-highlight",
-						},
-						render.Text("Newest on top"),
+			tags.Div(render.TagOpts{"class": "row text-center"},
+				tags.Div(render.TagOpts{"class": "col-sm text-center"},
+					render.Tag(
+						"h1",
+						render.TagOpts{"class": "page-title"},
+						render.Text("All Screencasts"),
+						tags.Div(
+							render.TagOpts{
+								"class": "d-inline-flex p-2 bd-highlight",
+							},
+							render.Tag(
+								"mark",
+								render.TagOpts{"class": "small"},
+								render.Text("newest on top"),
+							),
+						),
 					),
 				),
 			),
