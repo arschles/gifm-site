@@ -27,12 +27,14 @@ func (b baseTag) ToHTML() (io.Reader, error) {
 	return io.MultiReader(preamble, remaining), nil
 }
 
+// Base returns the basic shell of an app, with body inserted right after the
+// <body> and before the </body>
 func Base(manifest *assets.Manifest, body render.Elt) (render.Elt, error) {
 	headElt, err := head(manifest)
 	if err != nil {
 		return nil, err
 	}
-	bodyElt := render.Tag("body", render.EmptyOpts(), nav(), body)
+	bodyElt := render.Tag("body", render.EmptyOpts(), nav(), body, footer())
 	return baseTag{
 		baseElt: render.Tag("html", render.TagOpts{"lang": "en"}, headElt, bodyElt),
 	}, nil
