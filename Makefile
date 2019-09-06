@@ -14,7 +14,7 @@ docker-build:
 	docker build -t arschles/gifm-site .
 
 docker-run:
-	docker run -p 3000:3000 arschles/gifm-site
+	docker run -p 3000:3000 -e SESSION_SECRET=localsecret arschles/gifm-site
 
 .PHONY: docker-push
 docker-push:
