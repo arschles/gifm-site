@@ -20,6 +20,7 @@ RUN apk add --no-cache bash
 RUN apk add --no-cache ca-certificates
 
 WORKDIR /bin/
+COPY .env /bin
 
 COPY --from=builder /bin/app .
 
