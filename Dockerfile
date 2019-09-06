@@ -19,11 +19,6 @@ FROM alpine
 RUN apk add --no-cache bash
 RUN apk add --no-cache ca-certificates
 
-WORKDIR /bin/
-COPY .env /bin
-
-COPY --from=builder /bin/app .
-
 # Uncomment to run the binary in "production" mode:
 ENV GO_ENV=production
 
@@ -31,6 +26,12 @@ ENV GO_ENV=production
 ENV ADDR=0.0.0.0
 
 EXPOSE 3000
+
+WORKDIR /bin/
+
+COPY .env /bin
+
+COPY --from=builder /bin/app .
 
 # Uncomment to run the migrations before running the binary:
 CMD /bin/app migrate; /bin/app

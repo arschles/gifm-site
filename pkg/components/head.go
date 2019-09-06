@@ -36,17 +36,9 @@ func head(manifest *assets.Manifest) (render.Elt, error) {
 		cssElt,
 		render.Tag("title", render.EmptyOpts(), render.Text("Go in 5 Minutes")),
 		tags.Link(render.TagOpts{
-			"href": "https://fonts.googleapis.com/css?family=Varela+Round|Cousine:400,700",
+			"href": "//fonts.googleapis.com/css?family=Varela+Round|Cousine:400,700",
 			"rel":  "stylesheet",
 			"type": "text/css",
-		}),
-		// TODO: I don't think we need this since the tags.CSS call above will bring
-		// in bootstrap
-		tags.Link(render.TagOpts{
-			"rel":         "stylesheet",
-			"href":        "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css",
-			"integrity":   "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T",
-			"crossorigin": "anonymous",
 		}),
 	), nil
 }
