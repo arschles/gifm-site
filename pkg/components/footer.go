@@ -30,7 +30,7 @@ func footer() render.Elt {
 						tags.P(
 							render.EmptyOpts(),
 							render.Text(
-								`Proudly created with <a href="http://gohugo.io/">Hugo</a>`,
+								`Proudly created with <a href="http://gobuffalo.io/">Buffalo</a>`,
 							),
 						),
 					),
