@@ -6,17 +6,19 @@ start-db:
 stop-db:
 	docker-compose -p gifmsite down
 
+DOCKER_NAME := docker.pkg.github.com/arschles/go-in-5-minutes-site/server
+
 .PHONY: docker
 docker: docker-build docker-push
 
 .PHONY: docker-build
 docker-build:
-	docker build -t arschles/gifm-site .
+	docker build -t ${DOCKER_NAME} .
 
 docker-run:
-	docker run -p 3000:3000 -e SESSION_SECRET=localsecret arschles/gifm-site
+	docker run -p 3000:3000 -e SESSION_SECRET=localsecret ${DOCKER_NAME}
 
 .PHONY: docker-push
 docker-push:
-	docker push arschles/gifm-site
+	docker push ${DOCKER_NAME}
 
