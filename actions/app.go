@@ -1,14 +1,15 @@
 package actions
 
 import (
+	"github.com/arschles/go-in-5-minutes-site/models"
+	"github.com/arschles/go-in-5-minutes-site/actions/admin"
 	"github.com/gobuffalo/buffalo"
+	"github.com/gobuffalo/buffalo-pop/pop/popmw"
 	"github.com/gobuffalo/envy"
 	forcessl "github.com/gobuffalo/mw-forcessl"
 	paramlogger "github.com/gobuffalo/mw-paramlogger"
 	"github.com/unrolled/secure"
 
-	"github.com/arschles/go-in-5-minutes-site/models"
-	"github.com/gobuffalo/buffalo-pop/pop/popmw"
 	csrf "github.com/gobuffalo/mw-csrf"
 	i18n "github.com/gobuffalo/mw-i18n"
 	"github.com/gobuffalo/packr/v2"
@@ -61,7 +62,9 @@ func App() *buffalo.App {
 		app.GET("/", HomeHandler)
 
 		app.Resource("/screencasts", ScreencastsResource{})
-		app.GET("/admin", adminHandler)
+		adminGroup := app.Group("/admin")
+		adminRoutes := admin.Routes{Manifest: parsedManifest}
+		adminGroup.GET("/", adminRoutes.Home)
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
 
