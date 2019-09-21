@@ -1,13 +1,14 @@
 package actions
 
 import (
-	"github.com/arschles/go-in-5-minutes-site/models"
 	"github.com/arschles/go-in-5-minutes-site/actions/admin"
+	"github.com/arschles/go-in-5-minutes-site/models"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo-pop/pop/popmw"
 	"github.com/gobuffalo/envy"
 	forcessl "github.com/gobuffalo/mw-forcessl"
 	paramlogger "github.com/gobuffalo/mw-paramlogger"
+	"github.com/markbates/goth/gothic"
 	"github.com/unrolled/secure"
 
 	csrf "github.com/gobuffalo/mw-csrf"
@@ -40,6 +41,7 @@ func App() *buffalo.App {
 			Env:         ENV,
 			SessionName: "_go_in_5_minutes_site_session",
 		})
+		setupGoth(app)
 
 		// Automatically redirect to SSL
 		app.Use(forceSSL())
@@ -62,7 +64,19 @@ func App() *buffalo.App {
 		app.GET("/", HomeHandler)
 
 		app.Resource("/screencasts", ScreencastsResource{})
+
+		/////
+		// Auth
+		/////
+		auth := app.Group("/auth")
+		auth.GET("/{provider}", buffalo.WrapHandlerFunc(gothic.BeginAuthHandler))
+		auth.GET("/{provider}/callback", AuthCallback)
+
+		/////
+		// Admin
+		/////
 		adminGroup := app.Group("/admin")
+		adminGroup.Use(authorizeMiddleware)
 		adminRoutes := admin.Routes{Manifest: parsedManifest}
 		adminGroup.GET("/", adminRoutes.Home)
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
