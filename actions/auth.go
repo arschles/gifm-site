@@ -1,7 +1,6 @@
 package actions
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/gobuffalo/buffalo"
@@ -12,8 +11,11 @@ import (
 
 func setupGoth(app *buffalo.App) {
 	// gothic.Store = app.SessionStore
+	ghKey := os.Getenv("GITHUB_KEY")
+	ghSecret := os.Getenv("GITHUB_SECRET")
+	callback := os.Getenv("AUTH_CALLBACK")
 	goth.UseProviders(
-		github.New(os.Getenv("GITHUB_KEY"), os.Getenv("GITHUB_SECRET"), fmt.Sprintf("http://127.0.0.1:3000/auth/github/callback")),
+		github.New(ghKey, ghSecret, callback),
 	)
 }
 
@@ -22,8 +24,9 @@ func AuthCallback(c buffalo.Context) error {
 	if err != nil {
 		return c.Error(401, err)
 	}
+	c.Session().Set("current_user_id", user.UserID)
 	// Do something with the user, maybe register them/sign them in
-	return c.Render(200, r.JSON(user))
+	return c.Redirect(302, "/admin")
 }
 
 func authorizeMiddleware(next buffalo.Handler) buffalo.Handler {

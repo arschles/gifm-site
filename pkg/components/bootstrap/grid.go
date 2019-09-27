@@ -37,6 +37,10 @@ type Col struct {
 	elts []render.Elt
 }
 
+func NewCol(opts render.TagOpts) Col {
+	return Col{opts: opts, elts: nil}
+}
+
 func (c Col) WithChild(e render.Elt) Col {
 	c.elts = append(c.elts, e)
 	return c
