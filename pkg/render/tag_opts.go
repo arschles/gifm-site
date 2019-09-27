@@ -22,9 +22,19 @@ func (t *TagOpts) String() string {
 	return strings.Join(attrs, " ")
 }
 
-// to2 overwrites to1 unless a key is in mergeKeys. in that case, the val
-// in to1 is appended to to2 after a space
+// MergeTagOpts merges two sets of TagOpts together with the below
+// rules.
+//
+// to2 overwrites to1 unless a key is in mergeKeys.
+// in that case, the val in to1 is appended to to2 after a space
 func MergeTagOpts(to1, to2 TagOpts, mergeKeys ...string) TagOpts {
+	if to1 == nil && to2 == nil {
+		return TagOpts{}
+	} else if to1 == nil {
+		return to2
+	} else if to2 == nil {
+		return to1
+	}
 	mergeKeySet := map[string]struct{}{}
 	for _, mergeKey := range mergeKeys {
 		mergeKeySet[mergeKey] = struct{}{}
