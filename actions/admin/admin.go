@@ -18,3 +18,8 @@ func (r Routes) Home(c buffalo.Context) error {
 	}
 	return c.Render(200, render.EltToRenderer(view))
 }
+
+func (r Routes) ScreencastResource() buffalo.Resource {
+	// TODO!
+	return screencasts.CompleteResource{}
+}

@@ -2,6 +2,7 @@ package actions
 
 import (
 	"github.com/arschles/go-in-5-minutes-site/actions/admin"
+	"github.com/arschles/go-in-5-minutes-site/actions/screencasts"
 	"github.com/arschles/go-in-5-minutes-site/models"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo-pop/pop/popmw"
@@ -63,7 +64,7 @@ func App() *buffalo.App {
 
 		app.GET("/", HomeHandler)
 
-		app.Resource("/screencasts", ScreencastsResource{})
+		app.Resource("/screencasts", screencasts.ReadOnlyResource{})
 
 		/////
 		// Auth
@@ -79,6 +80,9 @@ func App() *buffalo.App {
 		adminGroup.Use(authorizeMiddleware)
 		adminRoutes := admin.Routes{Manifest: parsedManifest}
 		adminGroup.GET("/", adminRoutes.Home)
+		adminGroup.Resource("/screencasts", adminRoutes.ScreencastResource())
+
+		// Static files
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
 

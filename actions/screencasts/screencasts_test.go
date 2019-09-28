@@ -1,4 +1,4 @@
-package actions
+package screencasts
 
 func (as *ActionSuite) Test_ScreencastsResource_List() {
 	as.Fail("Not Implemented!")
