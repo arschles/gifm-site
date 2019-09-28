@@ -8,7 +8,7 @@ start-db:
 stop-db:
 	docker-compose -p gifmsite down
 
-DOCKER_NAME := docker.pkg.github.com/arschles/go-in-5-minutes-site/server
+DOCKER_NAME := index.docker.io/arschles/go-in-5-minutes-site/server
 
 .PHONY: docker
 docker: docker-build docker-push
