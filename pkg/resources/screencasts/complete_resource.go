@@ -32,6 +32,15 @@ func NewResource(basePath string, r *rndr.Engine, manifest *assets.Manifest) Res
 func (r Resource) New(c buffalo.Context) error {
 	// authenticityToken := forms.AuthenticityToken(c)
 	// screencastForm := admin.ScreencastForm(authenticityToken, r.BasePath())
+	// screencastForm, err := render.FromHTML(
+	// 	"screencasts/new.html",
+	// 	r.r,
+	// 	map[string]interface{}{
+	// 		"screencast": &models.Screencast{},
+	// 	})
+	// if err != nil {
+	// 	return err
+	// }
 	// view, err := components.Base(authenticityToken, r.manifest, screencastForm)
 	// if err != nil {
 	// 	return err
@@ -89,7 +98,8 @@ func (r Resource) Edit(c buffalo.Context) error {
 		return c.Error(404, err)
 	}
 
-	return r.Redirect(c)
+	c.Set("screencast", screencast)
+	return c.Render(200, r.r.HTML("screencasts/edit.html"))
 }
 
 // Update changes a Screencast in the DB

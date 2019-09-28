@@ -1,3 +1,8 @@
 node_modules/
 *.log
 bin/
+tmp/
+.envrc
+.yarn-error.log
+bin
+.github
