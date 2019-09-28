@@ -7,12 +7,21 @@ import (
 )
 
 func nav() render.Elt {
+	standardColOpts := render.TagOpts{"class": "col-sm-1"}
 	return bootstrap.NewGrid(render.TagOpts{
 		"class": "mt-4",
 	}).WithRow(
 		bootstrap.NewRow(render.EmptyOpts()).WithCol(
-			bootstrap.NewCol(render.TagOpts{"class": "col-sm"}).WithChild(
+			bootstrap.NewCol(standardColOpts).WithChild(
 				tags.A("/", render.EmptyOpts(), "Admin Home"),
+			),
+		).WithCol(
+			bootstrap.NewCol(standardColOpts).WithChild(
+				tags.A(
+					"/admin/screencasts/new",
+					render.EmptyOpts(),
+					"Create a new screencast",
+				),
 			),
 		),
 	)
