@@ -1,22 +1,45 @@
 package screencasts
 
-import "github.com/gobuffalo/buffalo"
+import (
+	"fmt"
 
-type CompleteResource struct {
-	buffalo.Resource
+	"github.com/arschles/go-in-5-minutes-site/models"
+	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
+	"github.com/arschles/go-in-5-minutes-site/pkg/components"
+	"github.com/arschles/go-in-5-minutes-site/pkg/render"
+	"github.com/arschles/go-in-5-minutes-site/pkg/resources"
+	"github.com/arschles/go-in-5-minutes-site/views/admin"
+	"github.com/gobuffalo/buffalo"
+	"github.com/gobuffalo/pop"
+)
+
+// Resource is a complete buffalo.Resource for screencasts
+type Resource struct {
 	ReadOnlyResource
+	resources.Base
+}
+
+// NewResource creates a new Resource for screencasts
+func NewResource(basePath string, manifest *assets.Manifest) Resource {
+	return Resource{
+		ReadOnlyResource: NewReadOnlyResource(manifest),
+		Base:             resources.NewBase(basePath),
+	}
 }
 
 // New renders the form for creating a new Screencast.
 // This function is mapped to the path GET /screencasts/new
-func (v CompleteResource) New(c buffalo.Context) error {
-	return c.Error(404, fmt.Errorf("Not found"))
-	// return c.Render(200, r.Auto(c, &models.Screencast{}))
+func (r Resource) New(c buffalo.Context) error {
+	view, err := components.Base(r.manifest, admin.ScreencastForm())
+	if err != nil {
+		return err
+	}
+	return c.Render(200, render.EltToRenderer(view))
 }
 
 // Create adds a Screencast to the DB. This function is mapped to the
 // path POST /screencasts
-func (v CompleteResource) Create(c buffalo.Context) error {
+func (r Resource) Create(c buffalo.Context) error {
 	// Allocate an empty Screencast
 	screencast := &models.Screencast{}
 
@@ -38,23 +61,15 @@ func (v CompleteResource) Create(c buffalo.Context) error {
 	}
 
 	if verrs.HasAny() {
-		// Make the errors available inside the html template
-		c.Set("errors", verrs)
-
-		// Render again the new.html template that the user can
-		// correct the input.
-		return c.Render(422, r.Auto(c, screencast))
+		return c.Error(500, fmt.Errorf("Errors creating the screencast! %s", verrs))
 	}
 
-	// If there are no errors set a success message
-	c.Flash().Add("success", T.Translate(c, "screencast.created.success"))
-	// and redirect to the screencasts index page
-	return c.Render(201, r.Auto(c, screencast))
+	return r.Redirect(c)
 }
 
 // Edit renders a edit form for a Screencast. This function is
 // mapped to the path GET /screencasts/{screencast_id}/edit
-func (v CompleteResource) Edit(c buffalo.Context) error {
+func (r Resource) Edit(c buffalo.Context) error {
 	// Get the DB connection from the context
 	tx, ok := c.Value("tx").(*pop.Connection)
 	if !ok {
@@ -68,12 +83,11 @@ func (v CompleteResource) Edit(c buffalo.Context) error {
 		return c.Error(404, err)
 	}
 
-	return c.Render(200, r.Auto(c, screencast))
+	return r.Redirect(c)
 }
 
-// Update changes a Screencast in the DB. This function is mapped to
-// the path PUT /screencasts/{screencast_id}
-func (v CompleteResource) Update(c buffalo.Context) error {
+// Update changes a Screencast in the DB
+func (r Resource) Update(c buffalo.Context) error {
 	// Get the DB connection from the context
 	tx, ok := c.Value("tx").(*pop.Connection)
 	if !ok {
@@ -98,23 +112,15 @@ func (v CompleteResource) Update(c buffalo.Context) error {
 	}
 
 	if verrs.HasAny() {
-		// Make the errors available inside the html template
-		c.Set("errors", verrs)
-
-		// Render again the edit.html template that the user can
-		// correct the input.
-		return c.Render(422, r.Auto(c, screencast))
+		return c.Error(500, fmt.Errorf("Error updating! %s", verrs))
 	}
 
-	// If there are no errors set a success message
-	c.Flash().Add("success", T.Translate(c, "screencast.updated.success"))
-	// and redirect to the screencasts index page
-	return c.Render(200, r.Auto(c, screencast))
+	return r.Redirect(c)
 }
 
 // Destroy deletes a Screencast from the DB. This function is mapped
 // to the path DELETE /screencasts/{screencast_id}
-func (v CompleteResource) Destroy(c buffalo.Context) error {
+func (r Resource) Destroy(c buffalo.Context) error {
 	// Get the DB connection from the context
 	tx, ok := c.Value("tx").(*pop.Connection)
 	if !ok {
@@ -130,12 +136,8 @@ func (v CompleteResource) Destroy(c buffalo.Context) error {
 	}
 
 	if err := tx.Destroy(screencast); err != nil {
-		return err
+		return c.Error(500, err)
 	}
 
-	// If there are no errors set a flash message
-	c.Flash().Add("success", T.Translate(c, "screencast.destroyed.success"))
-	// Redirect to the screencasts index page
-	return c.Render(200, r.Auto(c, screencast))
+	return r.Redirect(c)
 }
-

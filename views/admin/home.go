@@ -28,7 +28,7 @@ func Home(manifest *assets.Manifest) (render.Elt, error) {
 					bts.NewCol(render.TagOpts{
 						"class": "col-sm text-center",
 					}).WithChild(
-						screencastForm(),
+						ScreencastForm(),
 					),
 				),
 			),

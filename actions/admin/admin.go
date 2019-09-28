@@ -11,15 +11,12 @@ type Routes struct {
 	Manifest *assets.Manifest
 }
 
-func (r Routes) Home(c buffalo.Context) error {
-	view, err := admin.Home(r.Manifest)
-	if err != nil {
-		return err
+func HomeRoute(manifest *assets.Manifest) buffalo.Handler {
+	return func(c buffalo.Context) error {
+		view, err := admin.Home(manifest)
+		if err != nil {
+			return err
+		}
+		return c.Render(200, render.EltToRenderer(view))
 	}
-	return c.Render(200, render.EltToRenderer(view))
-}
-
-func (r Routes) ScreencastResource() buffalo.Resource {
-	// TODO!
-	return screencasts.CompleteResource{}
 }

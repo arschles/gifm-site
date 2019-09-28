@@ -2,8 +2,8 @@ package actions
 
 import (
 	"github.com/arschles/go-in-5-minutes-site/actions/admin"
-	"github.com/arschles/go-in-5-minutes-site/actions/screencasts"
 	"github.com/arschles/go-in-5-minutes-site/models"
+	"github.com/arschles/go-in-5-minutes-site/pkg/resources/screencasts"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo-pop/pop/popmw"
 	"github.com/gobuffalo/envy"
@@ -64,7 +64,9 @@ func App() *buffalo.App {
 
 		app.GET("/", HomeHandler)
 
-		app.Resource("/screencasts", screencasts.ReadOnlyResource{})
+		screencastsROResource := screencasts.NewReadOnlyResource(parsedManifest)
+		app.GET("/screencasts", screencastsROResource.List)
+		app.GET("/screencasts/{screencast_id}", screencastsROResource.Show)
 
 		/////
 		// Auth
@@ -78,9 +80,11 @@ func App() *buffalo.App {
 		/////
 		adminGroup := app.Group("/admin")
 		adminGroup.Use(authorizeMiddleware)
-		adminRoutes := admin.Routes{Manifest: parsedManifest}
-		adminGroup.GET("/", adminRoutes.Home)
-		adminGroup.Resource("/screencasts", adminRoutes.ScreencastResource())
+		adminGroup.GET("/", admin.HomeRoute(parsedManifest))
+		adminGroup.Resource(
+			"/screencasts",
+			screencasts.NewResource("/admin/screencasts", parsedManifest),
+		)
 
 		// Static files
 		app.ServeFiles("/", assetsBox) // serve files from the public directory

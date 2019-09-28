@@ -5,7 +5,12 @@ import (
 	"github.com/arschles/go-in-5-minutes-site/pkg/render"
 )
 
-func screencastForm() render.TagBuilder {
+// ScreencastForm returns a TagBuilder that contains the entire for for creating
+// a new screencast
+//
+// TODO: make this optionally take a screencast so you can edit the screencast
+// too
+func ScreencastForm() render.TagBuilder {
 	return render.NewTag("form").WithOpts(render.TagOpts{
 		"method": "POST",
 		"action": "/admin/screencasts/new",

@@ -1,6 +1,7 @@
 .PHONY: start-db
 start-db:
 	docker-compose -p gifmsite up -d dev-env
+	sleep 5
 	buffalo db migrate up
 
 .PHONY: stop-db
