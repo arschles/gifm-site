@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <title>Buffalo - Go In 5 Minutes Site</title>
-    <%= stylesheetTag("application.css") %>
-    <meta name="csrf-param" content="authenticity_token" />
-    <meta name="csrf-token" content="<%= authenticity_token %>" />
-    <link rel="icon" href="<%= assetPath("images/favicon.ico") %>">
-    <%= javascriptTag("application.js") %>
-  </head>
-  <body>
-    <%= partial("components/nav.plush.html") %>
-    <div class="container">
-      <%= partial("components/flash.plush.html") %>
-      <%= yield %>
-    </div>
-    <%= partial("components/footer.plush.html") %>
-  </body>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>Buffalo - Go In 5 Minutes Site</title>
+  <%= stylesheetTag("application.css") %>
+  <meta name="csrf-param" content="authenticity_token" />
+  <meta name="csrf-token" content="<%= authenticity_token %>" />
+  <link rel="icon" href="<%= assetPath("images/favicon.ico") %>">
+  <%= javascriptTag("application.js") %>
+</head>
+
+<body>
+  <%= nav() %>
+  <div class="container">
+    <%= partial("components/flash.plush.html") %>
+    <%= yield %>
+  </div>
+  <%= partial("components/footer.plush.html") %>
+</body>
+
 </html>

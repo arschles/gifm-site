@@ -18,6 +18,7 @@ require (
 	github.com/gobuffalo/tags v2.1.0+incompatible
 	github.com/gobuffalo/validate v2.0.3+incompatible
 	github.com/gofrs/uuid v3.2.0+incompatible
+	github.com/markbates/going v1.0.3 // indirect
 	github.com/markbates/goth v1.56.0
 	github.com/markbates/grift v1.1.0
 	github.com/pkg/errors v0.8.1

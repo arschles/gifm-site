@@ -34,7 +34,7 @@ func Base(authenticityToken string, manifest *assets.Manifest, body render.Elt) 
 	if err != nil {
 		return nil, err
 	}
-	bodyElt := render.Tag("body", render.EmptyOpts(), nav(), body, footer())
+	bodyElt := render.Tag("body", render.EmptyOpts(), Nav(), body, footer())
 	return baseTag{
 		baseElt: render.Tag("html", render.TagOpts{"lang": "en"}, headElt, bodyElt),
 	}, nil

@@ -5,7 +5,8 @@ import (
 	"github.com/arschles/gifm-site/pkg/tags"
 )
 
-func nav() render.Elt {
+// Nav is the navbar component
+func Nav() render.Elt {
 	return render.Tag("nav",
 		render.TagOpts{"class": "navbar navbar-expand-lg navbar-light bg-light"},
 		tags.Div(render.TagOpts{"class": "container-fluid"},
