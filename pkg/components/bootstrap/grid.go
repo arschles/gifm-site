@@ -51,8 +51,8 @@ type Grid struct {
 	rows []Row
 }
 
-func NewGrid() Grid {
-	return Grid{rows: nil}
+func NewGrid(opts render.TagOpts) Grid {
+	return Grid{opts: opts, rows: nil}
 }
 
 func (g Grid) WithRow(r Row) Grid {

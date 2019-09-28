@@ -23,8 +23,7 @@ func (t *TagOpts) String() string {
 }
 
 // MergeTagOpts merges two sets of TagOpts together with the below
-// rules.
-//
+// rule:
 // to2 overwrites to1 unless a key is in mergeKeys.
 // in that case, the val in to1 is appended to to2 after a space
 func MergeTagOpts(to1, to2 TagOpts, mergeKeys ...string) TagOpts {

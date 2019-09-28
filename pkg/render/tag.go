@@ -39,9 +39,7 @@ func (e tag) ToHTML() (io.Reader, error) {
 	if len(e.opts) > 0 {
 		optsStr = " " + e.opts.String()
 	}
-	toWrite := fmt.Sprintf(`<%s%s>
-%s
-</%s>`,
+	toWrite := fmt.Sprintf(`<%s%s>%s</%s>`,
 		e.name,
 		optsStr,
 		strings.Join(children, "\n"),
