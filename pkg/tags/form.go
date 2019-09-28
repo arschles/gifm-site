@@ -1,6 +1,6 @@
 package tags
 
-import "github.com/arschles/go-in-5-minutes-site/pkg/render"
+import "github.com/arschles/gifm-site/pkg/render"
 
 // Label creates a new <label> tag
 func Label(opts render.TagOpts) render.TagBuilder {

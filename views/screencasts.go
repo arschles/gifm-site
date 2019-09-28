@@ -1,11 +1,11 @@
 package views
 
 import (
-	"github.com/arschles/go-in-5-minutes-site/models"
-	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
-	"github.com/arschles/go-in-5-minutes-site/pkg/components"
-	"github.com/arschles/go-in-5-minutes-site/pkg/render"
-	"github.com/arschles/go-in-5-minutes-site/pkg/tags"
+	"github.com/arschles/gifm-site/models"
+	"github.com/arschles/gifm-site/pkg/assets"
+	"github.com/arschles/gifm-site/pkg/components"
+	"github.com/arschles/gifm-site/pkg/render"
+	"github.com/arschles/gifm-site/pkg/tags"
 )
 
 func Screencasts(authenticityToken string, manifest *assets.Manifest, screencasts *models.Screencasts) (render.Elt, error) {

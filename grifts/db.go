@@ -3,7 +3,7 @@ package grifts
 import (
 	"fmt"
 
-	"github.com/arschles/go-in-5-minutes-site/models"
+	"github.com/arschles/gifm-site/models"
 	"github.com/markbates/grift/grift"
 )
 

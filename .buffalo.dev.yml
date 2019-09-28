@@ -15,7 +15,7 @@ included_extensions:
 - .env
 build_path: tmp
 build_delay: 200ns
-binary_name: go-in-5-minutes-site-build
+binary_name: gifm-site-build
 command_flags: []
 enable_colors: true
 log_name: buffalo

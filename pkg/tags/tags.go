@@ -1,8 +1,8 @@
 package tags
 
 import (
-	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
-	"github.com/arschles/go-in-5-minutes-site/pkg/render"
+	"github.com/arschles/gifm-site/pkg/assets"
+	"github.com/arschles/gifm-site/pkg/render"
 )
 
 func Link(opts render.TagOpts) render.Elt {

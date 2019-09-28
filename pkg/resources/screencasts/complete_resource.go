@@ -3,9 +3,9 @@ package screencasts
 import (
 	"fmt"
 
-	"github.com/arschles/go-in-5-minutes-site/models"
-	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
-	"github.com/arschles/go-in-5-minutes-site/pkg/resources"
+	"github.com/arschles/gifm-site/models"
+	"github.com/arschles/gifm-site/pkg/assets"
+	"github.com/arschles/gifm-site/pkg/resources"
 	"github.com/gobuffalo/buffalo"
 	rndr "github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/pop"

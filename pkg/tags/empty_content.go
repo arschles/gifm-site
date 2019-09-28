@@ -5,7 +5,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/arschles/go-in-5-minutes-site/pkg/render"
+	"github.com/arschles/gifm-site/pkg/render"
 )
 
 type emptyContent struct {

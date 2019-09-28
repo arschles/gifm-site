@@ -1,10 +1,10 @@
 package views
 
 import (
-	"github.com/arschles/go-in-5-minutes-site/models"
-	"github.com/arschles/go-in-5-minutes-site/pkg/components/bootstrap"
-	"github.com/arschles/go-in-5-minutes-site/pkg/render"
-	"github.com/arschles/go-in-5-minutes-site/pkg/tags"
+	"github.com/arschles/gifm-site/models"
+	"github.com/arschles/gifm-site/pkg/components/bootstrap"
+	"github.com/arschles/gifm-site/pkg/render"
+	"github.com/arschles/gifm-site/pkg/tags"
 )
 
 // Screencast renders a single screencast

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
-	"github.com/arschles/go-in-5-minutes-site/pkg/helpers"
+	"github.com/arschles/gifm-site/pkg/assets"
+	"github.com/arschles/gifm-site/pkg/helpers"
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/packr/v2"
 )

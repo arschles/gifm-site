@@ -1,19 +1,19 @@
 package actions
 
 import (
-	"github.com/arschles/go-in-5-minutes-site/actions/admin"
-	"github.com/arschles/go-in-5-minutes-site/models"
-	"github.com/arschles/go-in-5-minutes-site/pkg/resources/screencasts"
+	"github.com/arschles/gifm-site/actions/admin"
+	"github.com/arschles/gifm-site/models"
+	"github.com/arschles/gifm-site/pkg/resources/screencasts"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo-pop/pop/popmw"
 	"github.com/gobuffalo/envy"
+	csrf "github.com/gobuffalo/mw-csrf"
 	forcessl "github.com/gobuffalo/mw-forcessl"
+	i18n "github.com/gobuffalo/mw-i18n"
 	paramlogger "github.com/gobuffalo/mw-paramlogger"
+	"github.com/gobuffalo/packr/v2"
 	"github.com/markbates/goth/gothic"
 	"github.com/unrolled/secure"
-	csrf "github.com/gobuffalo/mw-csrf"
-	i18n "github.com/gobuffalo/mw-i18n"
-	"github.com/gobuffalo/packr/v2"
 )
 
 // ENV is used to help switch settings based on where the

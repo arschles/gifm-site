@@ -1,10 +1,10 @@
 package admin
 
 import (
-	bts "github.com/arschles/go-in-5-minutes-site/pkg/components/bootstrap"
-	"github.com/arschles/go-in-5-minutes-site/pkg/forms"
-	"github.com/arschles/go-in-5-minutes-site/pkg/render"
-	"github.com/arschles/go-in-5-minutes-site/pkg/tags"
+	bts "github.com/arschles/gifm-site/pkg/components/bootstrap"
+	"github.com/arschles/gifm-site/pkg/forms"
+	"github.com/arschles/gifm-site/pkg/render"
+	"github.com/arschles/gifm-site/pkg/tags"
 )
 
 // ScreencastForm returns a TagBuilder that contains the entire for for creating

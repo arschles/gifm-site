@@ -3,10 +3,10 @@ package actions
 import (
 	"fmt"
 
-	"github.com/arschles/go-in-5-minutes-site/models"
-	"github.com/arschles/go-in-5-minutes-site/pkg/forms"
-	"github.com/arschles/go-in-5-minutes-site/pkg/render"
-	"github.com/arschles/go-in-5-minutes-site/views"
+	"github.com/arschles/gifm-site/models"
+	"github.com/arschles/gifm-site/pkg/forms"
+	"github.com/arschles/gifm-site/pkg/render"
+	"github.com/arschles/gifm-site/views"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop"
 )

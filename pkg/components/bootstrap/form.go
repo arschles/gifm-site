@@ -1,8 +1,8 @@
 package bootstrap
 
 import (
-	"github.com/arschles/go-in-5-minutes-site/pkg/render"
-	"github.com/arschles/go-in-5-minutes-site/pkg/tags"
+	"github.com/arschles/gifm-site/pkg/render"
+	"github.com/arschles/gifm-site/pkg/tags"
 )
 
 // FormGroup returns a TagBuilder for building up a "class":"form-group"

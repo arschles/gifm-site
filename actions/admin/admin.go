@@ -1,10 +1,10 @@
 package admin
 
 import (
-	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
-	"github.com/arschles/go-in-5-minutes-site/pkg/forms"
-	"github.com/arschles/go-in-5-minutes-site/pkg/render"
-	"github.com/arschles/go-in-5-minutes-site/views/admin"
+	"github.com/arschles/gifm-site/pkg/assets"
+	"github.com/arschles/gifm-site/pkg/forms"
+	"github.com/arschles/gifm-site/pkg/render"
+	"github.com/arschles/gifm-site/views/admin"
 	"github.com/gobuffalo/buffalo"
 )
 

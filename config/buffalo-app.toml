@@ -1,5 +1,5 @@
-name = "go-in-5-minutes-site"
-bin = "bin/go-in-5-minutes-site"
+name = "gifm-site"
+bin = "bin/gifm-site"
 vcs = "git"
 with_pop = true
 with_sqlite = false

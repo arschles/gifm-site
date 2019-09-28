@@ -1,10 +1,10 @@
 package components
 
 import (
-	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
-	"github.com/arschles/go-in-5-minutes-site/pkg/render"
-	"github.com/arschles/go-in-5-minutes-site/pkg/tags"
-	"github.com/arschles/go-in-5-minutes-site/pkg/forms"
+	"github.com/arschles/gifm-site/pkg/assets"
+	"github.com/arschles/gifm-site/pkg/forms"
+	"github.com/arschles/gifm-site/pkg/render"
+	"github.com/arschles/gifm-site/pkg/tags"
 	"github.com/pkg/errors"
 )
 

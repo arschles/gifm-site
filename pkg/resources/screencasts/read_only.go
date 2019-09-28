@@ -3,13 +3,13 @@ package screencasts
 import (
 	"fmt"
 
-	"github.com/arschles/go-in-5-minutes-site/models"
-	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
-	"github.com/arschles/go-in-5-minutes-site/pkg/components"
-	"github.com/arschles/go-in-5-minutes-site/pkg/components/bootstrap"
-	"github.com/arschles/go-in-5-minutes-site/pkg/forms"
-	"github.com/arschles/go-in-5-minutes-site/pkg/render"
-	"github.com/arschles/go-in-5-minutes-site/views"
+	"github.com/arschles/gifm-site/models"
+	"github.com/arschles/gifm-site/pkg/assets"
+	"github.com/arschles/gifm-site/pkg/components"
+	"github.com/arschles/gifm-site/pkg/components/bootstrap"
+	"github.com/arschles/gifm-site/pkg/forms"
+	"github.com/arschles/gifm-site/pkg/render"
+	"github.com/arschles/gifm-site/views"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop"
 )
