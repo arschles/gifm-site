@@ -7,8 +7,10 @@ import (
 	"github.com/arschles/go-in-5-minutes-site/pkg/render"
 )
 
-func Home(manifest *assets.Manifest) (render.Elt, error) {
+// Home returns the homepage for the admin tool
+func Home(manifest *assets.Manifest, authenticityToken string) (render.Elt, error) {
 	return components.Base(
+		authenticityToken,
 		manifest,
 		render.NewTag("div").WithOpt("class", "container").WithChild(
 			nav(),
@@ -28,7 +30,7 @@ func Home(manifest *assets.Manifest) (render.Elt, error) {
 					bts.NewCol(render.TagOpts{
 						"class": "col-sm text-center",
 					}).WithChild(
-						ScreencastForm(),
+						ScreencastForm(authenticityToken, "/admin/screencasts"),
 					),
 				),
 			),

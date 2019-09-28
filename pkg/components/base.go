@@ -29,8 +29,8 @@ func (b baseTag) ToHTML() (io.Reader, error) {
 
 // Base returns the basic shell of an app, with body inserted right after the
 // <body> and before the </body>
-func Base(manifest *assets.Manifest, body render.Elt) (render.Elt, error) {
-	headElt, err := head(manifest)
+func Base(authenticityToken string, manifest *assets.Manifest, body render.Elt) (render.Elt, error) {
+	headElt, err := head(manifest, authenticityToken)
 	if err != nil {
 		return nil, err
 	}

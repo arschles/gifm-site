@@ -2,7 +2,9 @@ package admin
 
 import (
 	bts "github.com/arschles/go-in-5-minutes-site/pkg/components/bootstrap"
+	"github.com/arschles/go-in-5-minutes-site/pkg/forms"
 	"github.com/arschles/go-in-5-minutes-site/pkg/render"
+	"github.com/arschles/go-in-5-minutes-site/pkg/tags"
 )
 
 // ScreencastForm returns a TagBuilder that contains the entire for for creating
@@ -10,15 +12,20 @@ import (
 //
 // TODO: make this optionally take a screencast so you can edit the screencast
 // too
-func ScreencastForm() render.TagBuilder {
+func ScreencastForm(authenticityToken, formAction string) render.TagBuilder {
 	return render.NewTag("form").WithOpts(render.TagOpts{
 		"method": "POST",
-		"action": "/admin/screencasts/new",
+		"action": formAction,
 	}).WithChildren(
+		tags.Input(render.TagOpts{
+			"name":  forms.TokenFieldName,
+			"value": authenticityToken,
+			"type":  "hidden",
+		}),
 		bts.FormGroup(render.EmptyOpts()).WithChild(
-			bts.Label("ep-num", "Episode Number", render.EmptyOpts()),
+			bts.Label("episode_num", "Episode Number", render.EmptyOpts()),
 		).WithChild(
-			bts.Input("text", "ep-num", "Episode Number", render.EmptyOpts()),
+			bts.Input("text", "episode_num", "Episode Number", render.EmptyOpts()),
 		),
 		bts.FormGroup(render.EmptyOpts()).WithChild(
 			bts.Label("title", "Title", render.EmptyOpts()),
@@ -40,7 +47,7 @@ func ScreencastForm() render.TagBuilder {
 			bts.Label("markdown", "Markdown Description", render.EmptyOpts()),
 		).WithChild(
 			bts.TextArea(render.TagOpts{
-				"id":       "markdown",
+				"id":       "Markdown",
 				"rows":     "8",
 				"required": "",
 			}),

@@ -5,11 +5,9 @@ import (
 
 	"github.com/arschles/go-in-5-minutes-site/models"
 	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
-	"github.com/arschles/go-in-5-minutes-site/pkg/components"
-	"github.com/arschles/go-in-5-minutes-site/pkg/render"
 	"github.com/arschles/go-in-5-minutes-site/pkg/resources"
-	"github.com/arschles/go-in-5-minutes-site/views/admin"
 	"github.com/gobuffalo/buffalo"
+	rndr "github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/pop"
 )
 
@@ -17,24 +15,32 @@ import (
 type Resource struct {
 	ReadOnlyResource
 	resources.Base
+	r *rndr.Engine
 }
 
 // NewResource creates a new Resource for screencasts
-func NewResource(basePath string, manifest *assets.Manifest) Resource {
+func NewResource(basePath string, r *rndr.Engine, manifest *assets.Manifest) Resource {
 	return Resource{
 		ReadOnlyResource: NewReadOnlyResource(manifest),
 		Base:             resources.NewBase(basePath),
+		r:                r,
 	}
 }
 
 // New renders the form for creating a new Screencast.
 // This function is mapped to the path GET /screencasts/new
 func (r Resource) New(c buffalo.Context) error {
-	view, err := components.Base(r.manifest, admin.ScreencastForm())
-	if err != nil {
-		return err
-	}
-	return c.Render(200, render.EltToRenderer(view))
+	// authenticityToken := forms.AuthenticityToken(c)
+	// screencastForm := admin.ScreencastForm(authenticityToken, r.BasePath())
+	// view, err := components.Base(authenticityToken, r.manifest, screencastForm)
+	// if err != nil {
+	// 	return err
+	// }
+	screencast := &models.Screencast{}
+	c.Set("screencast", screencast)
+	return c.Render(200, r.r.HTML("screencasts/new.html"))
+	// TODO: get forms working! Need to figure out the authenticity_token
+	// return c.Render(200, render.EltToRenderer(view))
 }
 
 // Create adds a Screencast to the DB. This function is mapped to the

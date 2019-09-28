@@ -25,6 +25,10 @@ func (b Base) Redirect(c buffalo.Context) error {
 	return c.Redirect(302, b.StringParam(c, RedirKey, b.basePath))
 }
 
+func (b Base) BasePath() string {
+	return b.basePath
+}
+
 // StringParam returns the value of the parameter "name" from c,
 // or defalt if it doesn't exist
 func (b Base) StringParam(c buffalo.Context, name, defalt string) string {

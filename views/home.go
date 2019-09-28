@@ -8,7 +8,7 @@ import (
 	"github.com/arschles/go-in-5-minutes-site/pkg/tags"
 )
 
-func Home(manifest *assets.Manifest) (render.Elt, error) {
+func Home(authenticitryToken string, manifest *assets.Manifest) (render.Elt, error) {
 
 	ytSubscribeButton := tags.Div(
 		render.TagOpts{"class": "col text-left"},
@@ -32,6 +32,7 @@ func Home(manifest *assets.Manifest) (render.Elt, error) {
 	)
 
 	return components.Base(
+		authenticitryToken,
 		manifest,
 		tags.Div(render.TagOpts{"class": "container text-center mt-5"},
 			tags.Div(

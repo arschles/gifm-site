@@ -7,6 +7,7 @@ import (
 	"github.com/arschles/go-in-5-minutes-site/pkg/tags"
 )
 
+// Screencast renders a single screencast
 func Screencast(screencast models.Screencast) render.Elt {
 	return tags.Div(render.TagOpts{"class": "row", "style": "margin-top:2em;"},
 		tags.Div(render.TagOpts{"class": "col-sm-12"},

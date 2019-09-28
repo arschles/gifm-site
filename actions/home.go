@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/arschles/go-in-5-minutes-site/models"
+	"github.com/arschles/go-in-5-minutes-site/pkg/forms"
 	"github.com/arschles/go-in-5-minutes-site/pkg/render"
 	"github.com/arschles/go-in-5-minutes-site/views"
 	"github.com/gobuffalo/buffalo"
@@ -29,7 +30,7 @@ func HomeHandler(c buffalo.Context) error {
 		return err
 	}
 	c.Set("screencasts", screencasts)
-	homeView, err := views.Home(parsedManifest)
+	homeView, err := views.Home(forms.AuthenticityToken(c), parsedManifest)
 	if err != nil {
 		return err
 	}

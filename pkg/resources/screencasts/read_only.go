@@ -7,6 +7,7 @@ import (
 	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
 	"github.com/arschles/go-in-5-minutes-site/pkg/components"
 	"github.com/arschles/go-in-5-minutes-site/pkg/components/bootstrap"
+	"github.com/arschles/go-in-5-minutes-site/pkg/forms"
 	"github.com/arschles/go-in-5-minutes-site/pkg/render"
 	"github.com/arschles/go-in-5-minutes-site/views"
 	"github.com/gobuffalo/buffalo"
@@ -47,7 +48,7 @@ func (r ReadOnlyResource) List(c buffalo.Context) error {
 	// Add the paginator to the context so it can be used in the template.
 	c.Set("pagination", q.Paginator)
 
-	view, err := views.Screencasts(r.manifest, screencasts)
+	view, err := views.Screencasts(forms.AuthenticityToken(c), r.manifest, screencasts)
 	if err != nil {
 		return err
 	}
@@ -73,6 +74,7 @@ func (r ReadOnlyResource) Show(c buffalo.Context) error {
 	}
 
 	view, err := components.Base(
+		forms.AuthenticityToken(c),
 		r.manifest,
 		bootstrap.NewGrid(render.EmptyOpts()).WithRow(
 			bootstrap.NewRow(render.EmptyOpts()).WithCol(

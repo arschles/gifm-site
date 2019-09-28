@@ -2,6 +2,7 @@ package admin
 
 import (
 	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
+	"github.com/arschles/go-in-5-minutes-site/pkg/forms"
 	"github.com/arschles/go-in-5-minutes-site/pkg/render"
 	"github.com/arschles/go-in-5-minutes-site/views/admin"
 	"github.com/gobuffalo/buffalo"
@@ -13,7 +14,7 @@ type Routes struct {
 
 func HomeRoute(manifest *assets.Manifest) buffalo.Handler {
 	return func(c buffalo.Context) error {
-		view, err := admin.Home(manifest)
+		view, err := admin.Home(manifest, forms.AuthenticityToken(c))
 		if err != nil {
 			return err
 		}

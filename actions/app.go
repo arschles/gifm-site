@@ -11,7 +11,6 @@ import (
 	paramlogger "github.com/gobuffalo/mw-paramlogger"
 	"github.com/markbates/goth/gothic"
 	"github.com/unrolled/secure"
-
 	csrf "github.com/gobuffalo/mw-csrf"
 	i18n "github.com/gobuffalo/mw-i18n"
 	"github.com/gobuffalo/packr/v2"
@@ -52,6 +51,8 @@ func App() *buffalo.App {
 
 		// Protect against CSRF attacks. https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
 		// Remove to disable this.
+		// TODO: figure out how to set the auth token properly,
+		// get forms working, and re-enable
 		app.Use(csrf.New)
 
 		// Wraps each request in a transaction.
@@ -83,7 +84,7 @@ func App() *buffalo.App {
 		adminGroup.GET("/", admin.HomeRoute(parsedManifest))
 		adminGroup.Resource(
 			"/screencasts",
-			screencasts.NewResource("/admin/screencasts", parsedManifest),
+			screencasts.NewResource("/admin/screencasts", r, parsedManifest),
 		)
 
 		// Static files

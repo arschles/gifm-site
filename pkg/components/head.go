@@ -4,10 +4,11 @@ import (
 	"github.com/arschles/go-in-5-minutes-site/pkg/assets"
 	"github.com/arschles/go-in-5-minutes-site/pkg/render"
 	"github.com/arschles/go-in-5-minutes-site/pkg/tags"
+	"github.com/arschles/go-in-5-minutes-site/pkg/forms"
 	"github.com/pkg/errors"
 )
 
-func head(manifest *assets.Manifest) (render.Elt, error) {
+func head(manifest *assets.Manifest, authenticityToken string) (render.Elt, error) {
 	jsElt, err := tags.JS(manifest, "application.js")
 	if err != nil {
 		return nil, errors.WithMessage(err, "Trying to construct <head>")
@@ -24,12 +25,12 @@ func head(manifest *assets.Manifest) (render.Elt, error) {
 		tags.Meta(render.TagOpts{"charset": "utf-8"}),
 		tags.Meta(render.TagOpts{
 			"name":    "csrf-param",
-			"content": "authenticity-token",
+			"content": forms.TokenFieldName,
 		}),
 		tags.Meta(render.TagOpts{
 			"name": "csrf-token",
 			// TODO: make random! see https://github.com/gobuffalo/mw-csrf/blob/master/csrf.go
-			"authenticity_token": "abvsfasdf",
+			"authenticity_token": authenticityToken,
 		}),
 		tags.Link(render.TagOpts{"rel": "icon", "href": "images/favicon.ico"}),
 		jsElt,

@@ -2,7 +2,31 @@
   <h1>New Screencast</h1>
 </div>
 
-<%= formFor(screencast, {action: screencastsPath(), method: "POST"}) { %>
-  <%= partial("screencasts/form.html") %>
-  <%= linkTo(screencastsPath(), {class: "btn btn-warning", "data-confirm": "Are you sure?", body: "Cancel"}) %>
+<%= form({action: "/admin/screencasts",  method: "POST"}) { %>
+<label for="episode-num">Episode Number</label>
+<%= f.InputTag({
+  name:"EpisodeNum",
+  id: "episode-num",
+  placeholder: "Episode Number"
+}) %>
+<label for="title">Title</label>
+<%= f.InputTag({
+  name: "Title",
+  id: "title",
+  placeholder: "Title"
+}) %>
+<label for="intro">Intro</label>
+<%= f.InputTag({
+  name: "Intro",
+  id: "intro",
+  placeholder: "Intro"
+}) %>
+<label for="description">Description (Markdown)</label>
+<%= f.TextArea({
+  name: "Description",
+  id: "description",
+  placeholder: "Description"
+}) %>
+<%= partial("screencasts/form.html") %>
+<%= linkTo(screencastsPath(), {class: "btn btn-warning", "data-confirm": "Are you sure?", body: "Cancel"}) %>
 <% } %>

@@ -8,13 +8,14 @@ import (
 	"github.com/arschles/go-in-5-minutes-site/pkg/tags"
 )
 
-func Screencasts(manifest *assets.Manifest, screencasts *models.Screencasts) (render.Elt, error) {
+func Screencasts(authenticityToken string, manifest *assets.Manifest, screencasts *models.Screencasts) (render.Elt, error) {
 	screencastsList := render.NewTag("div").WithOpt("class", "container-fluid")
 	for _, screencast := range *screencasts {
 		screencastsList = screencastsList.WithChild(Screencast(screencast))
 	}
 
 	return components.Base(
+		authenticityToken,
 		manifest,
 		tags.Div(render.TagOpts{"class": "container text-center"},
 			tags.Div(render.TagOpts{"class": "row text-center"},
