@@ -35,7 +35,7 @@ func Base(c buffalo.Context, manifest *assets.Manifest, body render.Elt) (render
 	if err != nil {
 		return nil, err
 	}
-	bodyElt := render.Tag("body", render.EmptyOpts(), Nav(), body, footer())
+	bodyElt := render.Tag("body", render.EmptyOpts(), Nav(c), body, footer())
 	return baseTag{
 		baseElt: render.Tag("html", render.TagOpts{"lang": "en"}, headElt, bodyElt),
 	}, nil

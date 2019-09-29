@@ -2,11 +2,13 @@ package components
 
 import (
 	"github.com/arschles/gifm-site/pkg/render"
+	"github.com/arschles/gifm-site/pkg/security"
 	"github.com/arschles/gifm-site/pkg/tags"
+	"github.com/gobuffalo/buffalo"
 )
 
 // Nav is the navbar component
-func Nav() render.Elt {
+func Nav(c buffalo.Context) render.Elt {
 	return render.Tag("nav",
 		render.TagOpts{"class": "navbar navbar-expand-lg navbar-light bg-light"},
 		tags.Div(render.TagOpts{"class": "container-fluid"},
@@ -33,8 +35,7 @@ func Nav() render.Elt {
 					"class": "navbar-collapse collapse",
 					"id":    "navbarSupportedContent",
 				},
-				linkList(),
-				// render.Tag("ul", render.TagOpts{"class": "navbar-nav mr-auto"}, linkList()),
+				linkList(security.IsAdmin(c)),
 			),
 		),
 	)
@@ -44,8 +45,8 @@ func liNavItem(contents ...render.Elt) render.Elt {
 	return render.Tag("li", render.TagOpts{"class": "nav-item pl-5"}, contents...)
 }
 
-func linkList() render.Elt {
-	return render.Tag("ul", render.TagOpts{"class": "navbar-nav mr-auto"},
+func linkList(admin bool) render.Elt {
+	ul := render.NewTag("ul").WithOpt("class", "navbar-nav mr-auto").WithChildren(
 		liNavItem(tags.A("/screencasts", render.EmptyOpts(), "Episodes")),
 		liNavItem(tags.A("/subscribe", render.EmptyOpts(), "Subscribe")),
 		liNavItem(tags.A("/backers", render.EmptyOpts(), "Backers")),
@@ -62,4 +63,10 @@ func linkList() render.Elt {
 			"target": "_blank",
 		}, "Become a Patron")),
 	)
+	if admin {
+		ul = ul.WithChild(
+			liNavItem(tags.A("/admin", render.EmptyOpts(), "<mark>Admin</mark>")),
+		)
+	}
+	return ul
 }

@@ -80,7 +80,7 @@ func App() *buffalo.App {
 		// Admin
 		/////
 		adminGroup := app.Group("/admin")
-		adminGroup.Use(authorizeMiddleware)
+		adminGroup.Use(authorizeMiddleware())
 		adminGroup.GET("/", admin.HomeRoute(parsedManifest))
 		adminGroup.Resource(
 			"/screencasts",

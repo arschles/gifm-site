@@ -47,7 +47,7 @@ func (r Resource) New(c buffalo.Context) error {
 	// }
 	screencast := &models.Screencast{}
 	c.Set("screencast", screencast)
-	c.Set("nav", navToHTML)
+	c.Set("nav", navToHTML(c))
 	return c.Render(200, r.r.HTML("screencasts/new.html"))
 	// TODO: get forms working! Need to figure out the authenticity_token
 	// return c.Render(200, render.EltToRenderer(view))
@@ -99,7 +99,7 @@ func (r Resource) Edit(c buffalo.Context) error {
 		return c.Error(404, err)
 	}
 
-	c.Set("nav", navToHTML)
+	c.Set("nav", navToHTML(c))
 	c.Set("screencast", screencast)
 	return c.Render(200, r.r.HTML("screencasts/edit.html"))
 }
