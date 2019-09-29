@@ -6,6 +6,7 @@ import (
 
 	"github.com/arschles/gifm-site/pkg/assets"
 	"github.com/arschles/gifm-site/pkg/render"
+	"github.com/gobuffalo/buffalo"
 )
 
 type emptyElt struct{}
@@ -29,8 +30,8 @@ func (b baseTag) ToHTML() (io.Reader, error) {
 
 // Base returns the basic shell of an app, with body inserted right after the
 // <body> and before the </body>
-func Base(authenticityToken string, manifest *assets.Manifest, body render.Elt) (render.Elt, error) {
-	headElt, err := head(manifest, authenticityToken)
+func Base(c buffalo.Context, manifest *assets.Manifest, body render.Elt) (render.Elt, error) {
+	headElt, err := head(c, manifest)
 	if err != nil {
 		return nil, err
 	}

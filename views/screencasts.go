@@ -3,14 +3,15 @@ package views
 import (
 	"github.com/arschles/gifm-site/models"
 	"github.com/arschles/gifm-site/pkg/assets"
-	"github.com/arschles/gifm-site/pkg/components"
-	"github.com/arschles/gifm-site/pkg/components/bootstrap"
+	"github.com/arschles/gifm-site/views/components"
+	"github.com/arschles/gifm-site/views/components/bootstrap"
 	"github.com/arschles/gifm-site/pkg/render"
 	"github.com/arschles/gifm-site/pkg/tags"
+	"github.com/gobuffalo/buffalo"
 )
 
 func Screencasts(
-	authenticityToken string,
+	c buffalo.Context,
 	manifest *assets.Manifest,
 	screencasts *models.Screencasts,
 ) (render.Elt, error) {
@@ -64,7 +65,7 @@ func Screencasts(
 	}
 
 	return components.Base(
-		authenticityToken,
+		c,
 		manifest,
 		grid,
 	)

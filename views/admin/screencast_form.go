@@ -1,9 +1,9 @@
 package admin
 
 import (
-	bts "github.com/arschles/gifm-site/pkg/components/bootstrap"
-	"github.com/arschles/gifm-site/pkg/forms"
+	bts "github.com/arschles/gifm-site/views/components/bootstrap"
 	"github.com/arschles/gifm-site/pkg/render"
+	"github.com/arschles/gifm-site/pkg/security"
 	"github.com/arschles/gifm-site/pkg/tags"
 )
 
@@ -12,14 +12,17 @@ import (
 //
 // TODO: make this optionally take a screencast so you can edit the screencast
 // too
-func ScreencastForm(authenticityToken, formAction string) render.TagBuilder {
+func ScreencastForm(
+	authenticityToken security.AuthenticityToken,
+	formAction string,
+) render.TagBuilder {
 	return render.NewTag("form").WithOpts(render.TagOpts{
 		"method": "POST",
 		"action": formAction,
 	}).WithChildren(
 		tags.Input(render.TagOpts{
-			"name":  forms.TokenFieldName,
-			"value": authenticityToken,
+			"name":  security.TokenFieldName,
+			"value": authenticityToken.String(),
 			"type":  "hidden",
 		}),
 		bts.FormGroup(render.EmptyOpts()).WithChild(

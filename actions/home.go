@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/arschles/gifm-site/models"
-	"github.com/arschles/gifm-site/pkg/forms"
 	"github.com/arschles/gifm-site/pkg/render"
 	"github.com/arschles/gifm-site/views"
 	"github.com/gobuffalo/buffalo"
@@ -30,7 +29,7 @@ func HomeHandler(c buffalo.Context) error {
 		return err
 	}
 	c.Set("screencasts", screencasts)
-	homeView, err := views.Home(forms.AuthenticityToken(c), parsedManifest)
+	homeView, err := views.Home(c, parsedManifest)
 	if err != nil {
 		return err
 	}

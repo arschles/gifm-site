@@ -2,13 +2,14 @@ package views
 
 import (
 	"github.com/arschles/gifm-site/pkg/assets"
-	"github.com/arschles/gifm-site/pkg/components"
-	"github.com/arschles/gifm-site/pkg/components/bootstrap"
+	"github.com/arschles/gifm-site/views/components"
+	"github.com/arschles/gifm-site/views/components/bootstrap"
 	"github.com/arschles/gifm-site/pkg/render"
 	"github.com/arschles/gifm-site/pkg/tags"
+	"github.com/gobuffalo/buffalo"
 )
 
-func Home(authenticitryToken string, manifest *assets.Manifest) (render.Elt, error) {
+func Home(c buffalo.Context, manifest *assets.Manifest) (render.Elt, error) {
 
 	ytSubscribeButton := tags.Div(
 		render.TagOpts{"class": "col text-left"},
@@ -32,7 +33,7 @@ func Home(authenticitryToken string, manifest *assets.Manifest) (render.Elt, err
 	)
 
 	return components.Base(
-		authenticitryToken,
+		c,
 		manifest,
 		tags.Div(render.TagOpts{"class": "container text-center mt-5"},
 			tags.Div(

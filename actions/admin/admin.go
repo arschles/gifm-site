@@ -2,7 +2,6 @@ package admin
 
 import (
 	"github.com/arschles/gifm-site/pkg/assets"
-	"github.com/arschles/gifm-site/pkg/forms"
 	"github.com/arschles/gifm-site/pkg/render"
 	"github.com/arschles/gifm-site/views/admin"
 	"github.com/gobuffalo/buffalo"
@@ -14,7 +13,7 @@ type Routes struct {
 
 func HomeRoute(manifest *assets.Manifest) buffalo.Handler {
 	return func(c buffalo.Context) error {
-		view, err := admin.Home(manifest, forms.AuthenticityToken(c))
+		view, err := admin.Home(c, manifest)
 		if err != nil {
 			return err
 		}

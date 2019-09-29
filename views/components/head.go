@@ -2,13 +2,18 @@ package components
 
 import (
 	"github.com/arschles/gifm-site/pkg/assets"
-	"github.com/arschles/gifm-site/pkg/forms"
 	"github.com/arschles/gifm-site/pkg/render"
+	"github.com/arschles/gifm-site/pkg/security"
 	"github.com/arschles/gifm-site/pkg/tags"
+	"github.com/gobuffalo/buffalo"
 	"github.com/pkg/errors"
 )
 
-func head(manifest *assets.Manifest, authenticityToken string) (render.Elt, error) {
+func head(
+	c buffalo.Context,
+	manifest *assets.Manifest,
+) (render.Elt, error) {
+	authenticityToken := security.AuthenticityTokenFromCtx(c)
 	jsElt, err := tags.JS(manifest, "application.js")
 	if err != nil {
 		return nil, errors.WithMessage(err, "Trying to construct <head>")
@@ -25,7 +30,7 @@ func head(manifest *assets.Manifest, authenticityToken string) (render.Elt, erro
 		tags.Meta(render.TagOpts{"charset": "utf-8"}),
 		tags.Meta(render.TagOpts{
 			"name":    "csrf-param",
-			"content": forms.TokenFieldName,
+			"content": security.TokenFieldName,
 		}),
 		tags.Meta(render.TagOpts{
 			"name": "csrf-token",

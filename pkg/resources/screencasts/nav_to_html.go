@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"html/template"
 
-	"github.com/arschles/gifm-site/pkg/components"
+	"github.com/arschles/gifm-site/views/components"
 )
 
 func navToHTML() (template.HTML, error) {

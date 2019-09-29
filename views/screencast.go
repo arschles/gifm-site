@@ -2,7 +2,7 @@ package views
 
 import (
 	"github.com/arschles/gifm-site/models"
-	"github.com/arschles/gifm-site/pkg/components/bootstrap"
+	"github.com/arschles/gifm-site/views/components/bootstrap"
 	"github.com/arschles/gifm-site/pkg/render"
 	"github.com/arschles/gifm-site/pkg/tags"
 )
