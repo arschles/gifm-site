@@ -22,4 +22,5 @@ require (
 	github.com/markbates/grift v1.1.0
 	github.com/pkg/errors v0.8.1
 	github.com/unrolled/secure v1.0.1
+	github.com/yuin/goldmark v1.1.0
 )

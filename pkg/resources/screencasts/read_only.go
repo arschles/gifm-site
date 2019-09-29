@@ -8,7 +8,6 @@ import (
 	"github.com/arschles/gifm-site/pkg/render"
 	"github.com/arschles/gifm-site/views"
 	"github.com/arschles/gifm-site/views/components"
-	"github.com/arschles/gifm-site/views/components/bootstrap"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop"
 )
@@ -72,17 +71,11 @@ func (r ReadOnlyResource) Show(c buffalo.Context) error {
 		return c.Error(404, err)
 	}
 
-	view, err := components.Base(
-		c,
-		r.manifest,
-		bootstrap.NewGrid(render.EmptyOpts()).WithRow(
-			bootstrap.NewRow(render.EmptyOpts()).WithCol(
-				bootstrap.NewCol(render.EmptyOpts()).WithChild(
-					render.Text(screencast.Title),
-				),
-			),
-		),
-	)
+	scView, err := views.Screencast(*screencast)
+	if err != nil {
+		return c.Error(500, err)
+	}
+	view, err := components.Base(c, r.manifest, scView)
 	if err != nil {
 		return c.Error(500, err)
 	}

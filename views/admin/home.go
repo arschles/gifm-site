@@ -2,10 +2,9 @@ package admin
 
 import (
 	"github.com/arschles/gifm-site/pkg/assets"
+	"github.com/arschles/gifm-site/pkg/render"
 	"github.com/arschles/gifm-site/views/components"
 	bts "github.com/arschles/gifm-site/views/components/bootstrap"
-	"github.com/arschles/gifm-site/pkg/render"
-	"github.com/arschles/gifm-site/pkg/tags"
 	"github.com/gobuffalo/buffalo"
 )
 
@@ -18,25 +17,17 @@ func Home(c buffalo.Context, manifest *assets.Manifest) (render.Elt, error) {
 		c,
 		manifest,
 		render.NewTag("div").WithOpt("class", "container").WithChild(
-			nav(),
-		).WithChild(
 			bts.NewGrid(standardColOpts).WithRow(
 				bts.NewRow(render.EmptyOpts()).WithCol(
 					bts.NewCol(render.TagOpts{
-						"class": "col-sm text-center",
+						"class": "col-sm text-center mt-4",
 					}).WithChild(
 						render.NewTag("h2").WithChild(render.Text("Admin Home")),
 					),
 				),
 			).WithRow(
 				bts.NewRow(render.EmptyOpts()).WithCol(
-					bts.NewCol(standardColOpts).WithChild(
-						tags.A(
-							"/admin/screencasts/new",
-							render.EmptyOpts(),
-							"Create a new screencast",
-						),
-					),
+					bts.NewCol(render.EmptyOpts()).WithChild(nav()),
 				),
 			),
 			// ).WithRow(

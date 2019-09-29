@@ -1,22 +1,22 @@
 package admin
 
 import (
-	"github.com/arschles/gifm-site/views/components/bootstrap"
 	"github.com/arschles/gifm-site/pkg/render"
 	"github.com/arschles/gifm-site/pkg/tags"
+	"github.com/arschles/gifm-site/views/components/bootstrap"
 )
 
 func nav() render.Elt {
-	standardColOpts := render.TagOpts{"class": "col-sm-3"}
+	stdCol := bootstrap.NewCol(render.TagOpts{"class": "col-sm"})
 	return bootstrap.NewGrid(render.TagOpts{
 		"class": "mt-4",
 	}).WithRow(
 		bootstrap.NewRow(render.EmptyOpts()).WithCol(
-			bootstrap.NewCol(standardColOpts).WithChild(
-				tags.A("/", render.EmptyOpts(), "Admin Home"),
+			stdCol.WithChild(
+				tags.A("/admin", render.EmptyOpts(), "Admin Home"),
 			),
 		).WithCol(
-			bootstrap.NewCol(standardColOpts).WithChild(
+			stdCol.WithChild(
 				tags.A(
 					"/admin/screencasts/new",
 					render.EmptyOpts(),
