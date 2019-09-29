@@ -46,6 +46,13 @@ func (c Col) WithChild(e render.Elt) Col {
 	return c
 }
 
+func (c Col) WithChildren(elts ...render.Elt) Col {
+	for _, elt := range elts {
+		c = c.WithChild(elt)
+	}
+	return c
+}
+
 type Grid struct {
 	opts render.TagOpts
 	rows []Row

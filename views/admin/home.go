@@ -24,7 +24,7 @@ func Home(manifest *assets.Manifest, authenticityToken string) (render.Elt, erro
 					bts.NewCol(render.TagOpts{
 						"class": "col-sm text-center",
 					}).WithChild(
-						render.NewTag("h2").WithChild(render.Text("Create a new Screencast")),
+						render.NewTag("h2").WithChild(render.Text("Admin Home")),
 					),
 				),
 			).WithRow(

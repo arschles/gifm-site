@@ -7,7 +7,7 @@ import (
 )
 
 func nav() render.Elt {
-	standardColOpts := render.TagOpts{"class": "col-sm-1"}
+	standardColOpts := render.TagOpts{"class": "col-sm-3"}
 	return bootstrap.NewGrid(render.TagOpts{
 		"class": "mt-4",
 	}).WithRow(
