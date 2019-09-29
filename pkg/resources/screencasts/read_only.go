@@ -5,10 +5,10 @@ import (
 
 	"github.com/arschles/gifm-site/models"
 	"github.com/arschles/gifm-site/pkg/assets"
-	"github.com/arschles/gifm-site/views/components"
-	"github.com/arschles/gifm-site/views/components/bootstrap"
 	"github.com/arschles/gifm-site/pkg/render"
 	"github.com/arschles/gifm-site/views"
+	"github.com/arschles/gifm-site/views/components"
+	"github.com/arschles/gifm-site/views/components/bootstrap"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop"
 )
@@ -40,7 +40,7 @@ func (r ReadOnlyResource) List(c buffalo.Context) error {
 	q := tx.PaginateFromParams(c.Params())
 
 	// Retrieve all Screencasts from the DB
-	if err := q.All(screencasts); err != nil {
+	if err := q.Order("episode_num desc").All(screencasts); err != nil {
 		return err
 	}
 

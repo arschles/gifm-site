@@ -1,12 +1,14 @@
 package views
 
 import (
+	"strconv"
+
 	"github.com/arschles/gifm-site/models"
 	"github.com/arschles/gifm-site/pkg/assets"
-	"github.com/arschles/gifm-site/views/components"
-	"github.com/arschles/gifm-site/views/components/bootstrap"
 	"github.com/arschles/gifm-site/pkg/render"
 	"github.com/arschles/gifm-site/pkg/tags"
+	"github.com/arschles/gifm-site/views/components"
+	"github.com/arschles/gifm-site/views/components/bootstrap"
 	"github.com/gobuffalo/buffalo"
 )
 
@@ -24,10 +26,8 @@ func Screencasts(
 			render.TagOpts{
 				"class": "d-inline-flex p-2 bd-highlight",
 			},
-			render.Tag(
-				"mark",
-				render.TagOpts{"class": "small"},
-				render.Text("newest on top"),
+			render.NewTag("small").WithOpt("class", "text-muted").WithChild(
+				render.Text("Newest on top"),
 			),
 		),
 	)
@@ -46,8 +46,12 @@ func Screencasts(
 				bootstrap.NewCol(stdColOpts).WithChildren(
 					render.NewTag("h2").WithChild(
 						render.Text(screencast.Title),
+					).WithChild(
+						render.NewTag("small").WithOpt("class", "text-muted").WithChild(
+							render.Text("Episode "+strconv.Itoa(screencast.EpisodeNum)),
+						),
 					),
-					render.NewTag("small").WithChildren(
+					render.NewTag("h4").WithChildren(
 						render.Text(screencast.Intro),
 					),
 					// tags.A("/screencasts/"+screencast.ID.String(), render.EmptyOpts(), "details"),
