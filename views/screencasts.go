@@ -6,6 +6,7 @@ import (
 	"github.com/arschles/gifm-site/models"
 	"github.com/arschles/gifm-site/pkg/assets"
 	"github.com/arschles/gifm-site/pkg/render"
+	"github.com/arschles/gifm-site/pkg/security"
 	"github.com/arschles/gifm-site/pkg/tags"
 	"github.com/arschles/gifm-site/views/components"
 	"github.com/arschles/gifm-site/views/components/bootstrap"
@@ -41,6 +42,21 @@ func Screencasts(
 		"class": "mt-3 shadow-sm p-3 mb-5 bg-white rounded",
 	})
 	for _, screencast := range *screencasts {
+		var editButton render.Elt
+		editButton = render.EmptyElt()
+		if security.IsAdmin(c) {
+			editButton = render.NewTag("a").
+				WithOpts(render.TagOpts{
+					"class": "btn btn-outline-primary mt-1",
+					"type":  "button",
+					"role":  "button",
+					// TODO: this link doesn't work!
+					"href": "/admin/screencasts/" + screencast.ID.String() + "/edit",
+				}).
+				WithChild(
+					render.Text("Edit"),
+				)
+		}
 		grid = grid.WithRow(
 			stdScreencastRow.WithCol(
 				bootstrap.NewCol(stdColOpts).WithChildren(
@@ -63,6 +79,7 @@ func Screencasts(
 							"role":  "button",
 						}, "Details"),
 					),
+					editButton,
 				),
 			),
 		)

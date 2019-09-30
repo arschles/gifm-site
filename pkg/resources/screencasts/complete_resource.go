@@ -19,7 +19,7 @@ type Resource struct {
 }
 
 // NewResource creates a new Resource for screencasts
-func NewResource(basePath string, r *rndr.Engine, manifest *assets.Manifest) Resource {
+func NewResource(basePath string, r *rndr.Engine, manifest *assets.Manifest) buffalo.Resource {
 	return Resource{
 		ReadOnlyResource: NewReadOnlyResource(manifest),
 		Base:             resources.NewBase(basePath),
@@ -84,7 +84,7 @@ func (r Resource) Create(c buffalo.Context) error {
 }
 
 // Edit renders a edit form for a Screencast. This function is
-// mapped to the path GET /screencasts/{screencast_id}/edit
+// mapped to the path GET /screencasts/{_id}/edit
 func (r Resource) Edit(c buffalo.Context) error {
 	// Get the DB connection from the context
 	tx, ok := c.Value("tx").(*pop.Connection)
@@ -95,7 +95,7 @@ func (r Resource) Edit(c buffalo.Context) error {
 	// Allocate an empty Screencast
 	screencast := &models.Screencast{}
 
-	if err := tx.Find(screencast, c.Param("screencast_id")); err != nil {
+	if err := tx.Find(screencast, c.Param("_id")); err != nil {
 		return c.Error(404, err)
 	}
 
@@ -115,7 +115,7 @@ func (r Resource) Update(c buffalo.Context) error {
 	// Allocate an empty Screencast
 	screencast := &models.Screencast{}
 
-	if err := tx.Find(screencast, c.Param("screencast_id")); err != nil {
+	if err := tx.Find(screencast, c.Param("_id")); err != nil {
 		return c.Error(404, err)
 	}
 
@@ -137,7 +137,7 @@ func (r Resource) Update(c buffalo.Context) error {
 }
 
 // Destroy deletes a Screencast from the DB. This function is mapped
-// to the path DELETE /screencasts/{screencast_id}
+// to the path DELETE /screencasts/{_id}
 func (r Resource) Destroy(c buffalo.Context) error {
 	// Get the DB connection from the context
 	tx, ok := c.Value("tx").(*pop.Connection)
@@ -148,8 +148,8 @@ func (r Resource) Destroy(c buffalo.Context) error {
 	// Allocate an empty Screencast
 	screencast := &models.Screencast{}
 
-	// To find the Screencast the parameter screencast_id is used.
-	if err := tx.Find(screencast, c.Param("screencast_id")); err != nil {
+	// To find the Screencast the parameter _id is used.
+	if err := tx.Find(screencast, c.Param("_id")); err != nil {
 		return c.Error(404, err)
 	}
 

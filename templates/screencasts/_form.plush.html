@@ -1,1 +1,32 @@
+<label for="episode-num">Episode Number</label>
+<%= f.InputTag({
+  name:"EpisodeNum",
+  id: "episode-num",
+  placeholder: "Episode Number",
+  value: screencast.EpisodeNum
+}) %>
+<label for="title">Title</label>
+<%= f.InputTag({
+  name: "Title",
+  id: "title",
+  placeholder: "Title",
+  value: screencast.Title
+}) %>
+<label for="intro">Intro</label>
+<%= f.InputTag({
+  name: "Intro",
+  id: "intro",
+  placeholder: "Intro",
+  value: screencast.Intro
+}) %>
+<label for="markdown">Description (Markdown)</label>
+<%= f.TextArea({
+  name: "Markdown",
+  id: "markdown",
+  placeholder: "Description",
+  rows:10,
+  value: screencast.Markdown
+}) %>
 <button class="btn btn-success" role="submit">Save</button>
+<%= linkTo("/admin/screencasts", {class: "btn btn-warning", "data-confirm": "Are you sure?", body: "Cancel"}) %>
+<% } %>
