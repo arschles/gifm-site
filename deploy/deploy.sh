@@ -4,7 +4,7 @@ set -eou pipefail
 
 REGION="westus"
 DNS_LABEL="gifm-app"
-IMAGE=$1
+IMAGE=$(make -C .. docker-name)
 
 echo "Deploying $IMAGE to group $RES_GROUP in $REGION"
 

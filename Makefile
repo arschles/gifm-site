@@ -10,6 +10,10 @@ stop-db:
 
 DOCKER_NAME := docker.io/arschles/gifm-site
 
+.PHONY: docker-name
+docker-name:
+	@echo ${DOCKER_NAME}
+
 .PHONY: docker
 docker: docker-build docker-push
 
@@ -23,4 +27,3 @@ docker-run:
 .PHONY: docker-push
 docker-push:
 	docker push ${DOCKER_NAME}
-
