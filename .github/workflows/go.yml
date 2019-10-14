@@ -2,23 +2,22 @@ name: Go
 on: [push]
 jobs:
 
-  build:
-    name: Build
+  test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
-
     - name: Set up Go 1.13
       uses: actions/setup-go@v1
       with:
         go-version: 1.13
       id: go
-
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
-
-    - name: Build
-      uses: gobuffalo/buffalo@v0.14.0
-      run: buffalo build
-      
     - name: Run unit tests
       run: go test ./pkg/... ./views/...
+  
+  buffalo-build:
+    name: Build with Buffalo
+    container: gobuffalo/buffalo:v0.14.0
+    steps:
+      - run: buffalo build
