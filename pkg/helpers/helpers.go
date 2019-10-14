@@ -25,7 +25,9 @@ func optsAsString(opts tags.Options) string {
 }
 
 func Tag(name string, opts tags.Options, h template.HTML) template.HTML {
-	return template.HTML(fmt.Sprintf(`<%s %s>%s</%s>`, name, optsAsString(opts), h))
+	return template.HTML(
+		fmt.Sprintf(`<%s %s>%s</%s>`, name, optsAsString(opts), h, name),
+	)
 }
 
 // TODO: make these like the formFor and form helpers.
