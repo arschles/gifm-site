@@ -4,24 +4,26 @@ import (
 	"io"
 
 	"google.golang.org/api/youtube/v3"
+	ytcore "google.golang.org/api/youtube/v3"
 )
 
-// UploadToYoutube uses service to upload file to YouTube
+// UploadToYoutube uses service to upload file to YouTube and returns the new
+// YouTube video
 //
 // Get the service from GetService
 func UploadToYoutube(
-	service *youtube.Service,
+	service *ytcore.Service,
 	file io.Reader,
 	channelID string,
 	title string,
-) (string, error) {
-	video := &youtube.Video{
+) (*ytcore.Video, error) {
+	video := &ytcore.Video{
 		Snippet: &youtube.VideoSnippet{
 			CategoryId: "22",
 			ChannelId:  channelID,
 			Title:      title,
 		},
-		Status: &youtube.VideoStatus{
+		Status: &ytcore.VideoStatus{
 			PrivacyStatus: "private",
 		},
 	}
@@ -29,8 +31,8 @@ func UploadToYoutube(
 
 	response, err := call.Media(file).Do()
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return response.Id, nil
+	return response, nil
 }

@@ -89,8 +89,7 @@ func (r Resource) Create(c buffalo.Context) error {
 	if err != nil {
 		return err
 	}
-	// ytResponseID, ytUploadErr := youtube.UploadToYoutube(
-	_, ytUploadErr := youtube.UploadToYoutube(
+	ytVideo, ytUploadErr := youtube.UploadToYoutube(
 		ytSvc,
 		videoFile,
 		r.ytConfig.ChannelID(),
@@ -99,7 +98,8 @@ func (r Resource) Create(c buffalo.Context) error {
 	if ytUploadErr != nil {
 		return ytUploadErr
 	}
-	// TODO: save ytResponseID somewhere!
+
+	screencast.YouTubeID = ytVideo.Id
 
 	// Validate the data from the html form
 	verrs, err := tx.ValidateAndCreate(screencast)
