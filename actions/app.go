@@ -1,9 +1,12 @@
 package actions
 
 import (
+	"log"
+
 	"github.com/arschles/gifm-site/actions/admin"
 	"github.com/arschles/gifm-site/models"
 	"github.com/arschles/gifm-site/pkg/resources/screencasts"
+	"github.com/arschles/gifm-site/pkg/youtube"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo-pop/pop/popmw"
 	"github.com/gobuffalo/envy"
@@ -82,12 +85,31 @@ func App() *buffalo.App {
 		/////
 		// Admin
 		/////
+
+		ytChannelID, err := envy.MustGet("YOUTUBE_CHANNEL_ID")
+		if err != nil {
+			log.Fatalf("YOUTUBE_CHANNEL_ID was not specified")
+		}
+		googleServiceAccountBase64, err := envy.MustGet("GOOGLE_SERVICE_ACCOUNT_BASE64")
+		if err != nil {
+			log.Fatalf("GOOGLE_SERVICE_ACCOUNT_BASE64 was not specified")
+		}
+		ytConfig := youtube.NewConfig(
+			[]byte(googleServiceAccountBase64),
+			ytChannelID,
+		)
+
 		adminGroup := app.Group("/admin")
 		adminGroup.Use(authorizeMiddleware())
 		adminGroup.GET("/", admin.HomeRoute(parsedManifest))
 		adminGroup.Resource(
 			"/screencasts",
-			screencasts.NewResource("/admin/screencasts", r, parsedManifest),
+			screencasts.NewResource(
+				"/admin/screencasts",
+				r,
+				parsedManifest,
+				ytConfig,
+			),
 		)
 
 		// Static files

@@ -9,11 +9,16 @@ import (
 // UploadToYoutube uses service to upload file to YouTube
 //
 // Get the service from GetService
-func UploadToYoutube(service *youtube.Service, file io.Reader, channelID string, title string) (string, error) {
+func UploadToYoutube(
+	service *youtube.Service,
+	file io.Reader,
+	channelID string,
+	title string,
+) (string, error) {
 	video := &youtube.Video{
 		Snippet: &youtube.VideoSnippet{
 			CategoryId: "22",
-			ChannelId:  channelID,z
+			ChannelId:  channelID,
 			Title:      title,
 		},
 		Status: &youtube.VideoStatus{
