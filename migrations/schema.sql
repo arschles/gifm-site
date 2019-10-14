@@ -43,7 +43,7 @@ CREATE TABLE public.screencasts (
     title text NOT NULL,
     intro text NOT NULL,
     markdown text NOT NULL,
-    youtube_url character varying(255)
+    youtube_id character varying(255) NOT NULL
 );
 
 
