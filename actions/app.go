@@ -44,7 +44,10 @@ func App() *buffalo.App {
 		setupGoth(app)
 
 		// Automatically redirect to SSL
-		app.Use(forceSSL())
+		//
+		// Off because this runs without TLS on ACI. Need to make
+		// the internal IP protected
+		// app.Use(forceSSL())
 
 		// Log request parameters (filters apply).
 		app.Use(paramlogger.ParameterLogger)
