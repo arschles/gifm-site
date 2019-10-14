@@ -17,6 +17,7 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Build
-      run: go build -v .
+      uses: gobuffalo/buffalo:v0.14.10
+      
     - name: Run unit tests
       run: go test ./pkg/... ./views/...
