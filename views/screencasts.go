@@ -1,8 +1,6 @@
 package views
 
 import (
-	"strconv"
-
 	"github.com/arschles/gifm-site/models"
 	"github.com/arschles/gifm-site/pkg/assets"
 	"github.com/arschles/gifm-site/pkg/render"
@@ -32,58 +30,12 @@ func Screencasts(
 			),
 		),
 	)
+	screencastRows := ScreencastsList(screencasts, security.IsAdmin(c))
 	grid := bootstrap.NewGrid(render.EmptyOpts()).WithRow(
 		bootstrap.NewRow(render.EmptyOpts()).WithCol(
 			bootstrap.NewCol(stdColOpts).WithChild(header),
 		),
-	)
-
-	stdScreencastRow := bootstrap.NewRow(render.TagOpts{
-		"class": "mt-3 shadow-sm p-3 mb-5 bg-white rounded",
-	})
-	for _, screencast := range *screencasts {
-		var editButton render.Elt
-		editButton = render.EmptyElt()
-		if security.IsAdmin(c) {
-			editButton = render.NewTag("a").
-				WithOpts(render.TagOpts{
-					"class": "btn btn-outline-primary mt-1",
-					"type":  "button",
-					"role":  "button",
-					// TODO: this link doesn't work!
-					"href": "/admin/screencasts/" + screencast.ID.String() + "/edit",
-				}).
-				WithChild(
-					render.Text("Edit"),
-				)
-		}
-		grid = grid.WithRow(
-			stdScreencastRow.WithCol(
-				bootstrap.NewCol(stdColOpts).WithChildren(
-					render.NewTag("h2").WithChild(
-						render.Text(screencast.Title),
-					).WithChild(
-						render.NewTag("small").WithOpt("class", "text-muted").WithChild(
-							render.Text("Episode "+strconv.Itoa(screencast.EpisodeNum)),
-						),
-					),
-					render.NewTag("h4").WithChildren(
-						render.Text(screencast.Intro),
-					),
-					// tags.A("/screencasts/"+screencast.ID.String(), render.EmptyOpts(), "details"),
-					// <button type="button" class="btn btn-primary">Primary</button>
-					render.NewTag("div").WithOpt("class", "mt-1").WithChild(
-						tags.A("/screencasts/"+screencast.ID.String(), render.TagOpts{
-							"class": "btn btn-outline-primary",
-							"type":  "button",
-							"role":  "button",
-						}, "Details"),
-					),
-					editButton,
-				),
-			),
-		)
-	}
+	).WithRows(screencastRows...)
 
 	return components.Base(
 		c,

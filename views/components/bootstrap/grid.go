@@ -66,6 +66,10 @@ func (g Grid) WithRow(r Row) Grid {
 	g.rows = append(g.rows, r)
 	return g
 }
+func (g Grid) WithRows(r ...Row) Grid {
+	g.rows = append(g.rows, r...)
+	return g
+}
 
 func (g Grid) ToHTML() (io.Reader, error) {
 	rowElts := make([]render.Elt, len(g.rows))

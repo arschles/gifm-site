@@ -15,10 +15,8 @@ func Home(c buffalo.Context, manifest *assets.Manifest, screencasts *models.Scre
 	standardColOpts := render.TagOpts{
 		"class": "col-sm text-center",
 	}
-	screencastsView, err := views.Screencasts(c, manifest, screencasts)
-	if err != nil {
-		return nil, err
-	}
+	screencastRows := views.ScreencastsList(screencasts, true)
+
 	return components.Base(
 		c,
 		manifest,
@@ -35,21 +33,7 @@ func Home(c buffalo.Context, manifest *assets.Manifest, screencasts *models.Scre
 				bts.NewRow(render.EmptyOpts()).WithCol(
 					bts.NewCol(render.EmptyOpts()).WithChild(nav()),
 				),
-			).WithRow(bts.NewRow(render.EmptyOpts()).WithCol(
-				bts.NewCol(render.EmptyOpts()).WithChild(
-					screencastsView,
-				),
-			),
-			// ).WithRow(
-			// 	bts.NewRow(render.EmptyOpts()).WithCol(
-			// 		bts.NewCol(render.TagOpts{
-			// 			"class": "col-sm text-center",
-			// 		}).WithChild(
-			// 			ScreencastForm(authenticityToken, "/admin/screencasts"),
-			// 		),
-			// 	),
-			// ),
-			),
+			).WithRows(screencastRows...),
 		),
 	)
 }
