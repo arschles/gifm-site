@@ -18,6 +18,7 @@ type Screencast struct {
 	Title      string    `json:"title" db:"title"`
 	Intro      string    `json:"intro" db:"intro"`
 	Markdown   string    `json:"markdown" db:"markdown"`
+	YouTubeID  string    `json:"youtube_id" db:"youtube_id"`
 }
 
 // String is not required by pop and may be deleted

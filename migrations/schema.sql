@@ -42,7 +42,8 @@ CREATE TABLE public.screencasts (
     episode_num integer NOT NULL,
     title text NOT NULL,
     intro text NOT NULL,
-    markdown text NOT NULL
+    markdown text NOT NULL,
+    youtube_id character varying(255) NOT NULL
 );
 
 

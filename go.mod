@@ -23,4 +23,6 @@ require (
 	github.com/pkg/errors v0.8.1
 	github.com/unrolled/secure v1.0.1
 	github.com/yuin/goldmark v1.1.0
+	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
+	google.golang.org/api v0.11.0
 )

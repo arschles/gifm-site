@@ -6,7 +6,9 @@ import (
 	"github.com/arschles/gifm-site/models"
 	"github.com/arschles/gifm-site/pkg/assets"
 	"github.com/arschles/gifm-site/pkg/resources"
+	"github.com/arschles/gifm-site/pkg/youtube"
 	"github.com/gobuffalo/buffalo"
+	"github.com/gobuffalo/buffalo/render"
 	rndr "github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/pop"
 )
@@ -15,15 +17,22 @@ import (
 type Resource struct {
 	ReadOnlyResource
 	resources.Base
-	r *rndr.Engine
+	r        *render.Engine
+	ytConfig youtube.Config
 }
 
 // NewResource creates a new Resource for screencasts
-func NewResource(basePath string, r *rndr.Engine, manifest *assets.Manifest) buffalo.Resource {
+func NewResource(
+	basePath string,
+	r *rndr.Engine,
+	manifest *assets.Manifest,
+	ytConfig youtube.Config,
+) buffalo.Resource {
 	return Resource{
 		ReadOnlyResource: NewReadOnlyResource(manifest),
 		Base:             resources.NewBase(basePath),
 		r:                r,
+		ytConfig:         ytConfig,
 	}
 }
 
@@ -56,6 +65,12 @@ func (r Resource) New(c buffalo.Context) error {
 // Create adds a Screencast to the DB. This function is mapped to the
 // path POST /screencasts
 func (r Resource) Create(c buffalo.Context) error {
+	// Get the DB connection from the context
+	tx, ok := c.Value("tx").(*pop.Connection)
+	if !ok {
+		return fmt.Errorf("no transaction found")
+	}
+
 	// Allocate an empty Screencast
 	screencast := &models.Screencast{}
 
@@ -64,11 +79,27 @@ func (r Resource) Create(c buffalo.Context) error {
 		return err
 	}
 
-	// Get the DB connection from the context
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return fmt.Errorf("no transaction found")
+	videoFile, err := c.File("Video")
+	if err != nil {
+		return err
 	}
+	defer videoFile.Close()
+
+	ytSvc, err := r.ytConfig.Service(c)
+	if err != nil {
+		return err
+	}
+	ytVideo, ytUploadErr := youtube.UploadToYoutube(
+		ytSvc,
+		videoFile,
+		r.ytConfig.ChannelID(),
+		screencast.Title,
+	)
+	if ytUploadErr != nil {
+		return ytUploadErr
+	}
+
+	screencast.YouTubeID = ytVideo.Id
 
 	// Validate the data from the html form
 	verrs, err := tx.ValidateAndCreate(screencast)

@@ -19,6 +19,12 @@
   placeholder: "Intro",
   value: screencast.Intro
 }) %>
+<label for="video">Upload Video</label>
+<%= f.FileTag({
+  name:"Video",
+  id:"video",
+  placeholder:"Video File"
+}) %>
 <label for="markdown">Description (Markdown)</label>
 <%= f.TextArea({
   name: "Markdown",
